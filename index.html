@@ -23,8 +23,9 @@
      used in production" i nie wymagać kroku budowania.
      ========================================================= */
   .flex{display:flex} .grid{display:grid} .grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))} .grid-cols-7{grid-template-columns:repeat(7,minmax(0,1fr))}
   .flex-col{flex-direction:column} .flex-1{flex:1 1 0%}
-  .items-center{align-items:center} .items-start{align-items:flex-start}
+  .items-center{align-items:center} .items-start{align-items:flex-start} .items-end{align-items:flex-end}
   .justify-center{justify-content:center} .justify-between{justify-content:space-between}
   .relative{position:relative} .absolute{position:absolute} .fixed{position:fixed}
   .overflow-hidden{overflow:hidden} .overflow-y-auto{overflow-y:auto}
@@ -34,7 +35,7 @@
   .top-2\.5{top:10px} .right-2\.5{right:10px} .right-0{right:0} .left-0{left:0} .bottom-0{bottom:0}
   .-top-0\.5{top:-2px} .-right-0\.5{right:-2px}
 
-  .gap-1{gap:4px} .gap-1\.5{gap:6px} .gap-2{gap:8px} .gap-3{gap:12px} .gap-4{gap:16px} .gap-5{gap:20px}
+  .gap-1{gap:4px} .gap-1\.5{gap:6px} .gap-2{gap:8px} .gap-3{gap:12px} .gap-4{gap:16px} .gap-5{gap:20px} .gap-6{gap:24px}
 
   .mt-0\.5{margin-top:2px} .mt-1{margin-top:4px} .mt-1\.5{margin-top:6px} .mt-3{margin-top:12px} .mt-4{margin-top:16px}
   .mb-2{margin-bottom:8px} .mb-3{margin-bottom:12px} .mb-4{margin-bottom:16px} .mb-6{margin-bottom:24px}
@@ -52,7 +53,7 @@
   .pr-1{padding-right:4px}
 
   .w-1{width:4px} .w-1\.5{width:6px} .w-2{width:8px} .w-5{width:20px} .w-9{width:36px}
-  .w-10{width:40px} .w-11{width:44px} .w-12{width:48px} .w-16{width:64px} .w-24{width:96px}
+  .w-10{width:40px} .w-11{width:44px} .w-12{width:48px} .w-14{width:56px} .w-16{width:64px} .w-24{width:96px}
   .h-1{height:4px} .h-1\.5{height:6px} .h-2{height:8px} .h-8{height:32px} .h-9{height:36px}
   .h-10{height:40px} .h-11{height:44px} .h-16{height:64px} .h-px{height:1px}
   .h-\[52px\]{height:52px} .h-\[56px\]{height:56px}
@@ -124,6 +125,46 @@
   .dialog-btn-secondary{ background:var(--tile-2); color:#fff; }
   .name-input{ width:100%; height:52px; border-radius:16px; background:var(--tile-2); border:1px solid var(--hairline); color:#fff; font-size:16px; font-weight:600; padding:0 16px; margin-bottom:18px; outline:none; }
   .name-input:focus{ border-color:var(--accent); }
+
+  /* ===== NOWE KLASY ===== */
+  .modal-full{ position:fixed; inset:0; background:var(--bg); z-index:70; display:none; flex-direction:column; }
+  .modal-full.open{ display:flex; }
+  .modal-header{ display:flex; align-items:center; justify-content:between; padding:20px; border-bottom:1px solid var(--hairline); }
+  .modal-header-title{ font-size:22px; font-weight:800; flex:1; }
+  .modal-close-btn{ width:40px; height:40px; border-radius:12px; border:none; background:var(--tile-2); color:#fff; font-size:20px; cursor:pointer; flex-shrink:0; }
+  .modal-content{ flex:1; overflow-y:auto; padding:20px; }
+  .modal-footer{ padding:16px 20px; border-top:1px solid var(--hairline); }
+  .btn-primary{ width:100%; height:52px; background:var(--accent); color:#0D0D0D; border:none; border-radius:16px; font-weight:700; font-size:15px; cursor:pointer; }
+  .btn-secondary{ width:100%; height:52px; background:var(--tile-2); color:#fff; border:1px solid var(--hairline); border-radius:16px; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:10px; }
+  .plan-card{ background:var(--tile); border:1px solid var(--hairline); border-radius:20px; padding:16px; margin-bottom:12px; }
+  .plan-card-title{ font-size:18px; font-weight:700; margin-bottom:8px; }
+  .plan-card-days{ display:flex; gap:4px; flex-wrap:wrap; margin-bottom:12px; }
+  .day-badge{ padding:4px 8px; background:var(--tile-2); border-radius:6px; font-size:11px; color:var(--text-dim); }
+  .day-badge.active{ background:var(--accent); color:#0D0D0D; font-weight:600; }
+  .plan-card-actions{ display:flex; gap:8px; }
+  .btn-small{ flex:1; height:40px; border-radius:12px; border:none; font-size:13px; font-weight:600; cursor:pointer; }
+  .btn-small-primary{ background:var(--accent); color:#0D0D0D; }
+  .btn-small-danger{ background:#ff3b30; color:#fff; }
+  .day-selector{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:20px; }
+  .day-btn{ padding:10px 4px; background:var(--tile-2); border:2px solid var(--hairline); border-radius:10px; color:var(--text-dim); font-size:12px; font-weight:600; cursor:pointer; text-align:center; }
+  .day-btn.active{ background:var(--accent); border-color:var(--accent); color:#0D0D0D; }
+  .exercise-item{ background:var(--tile-2); border:1px solid var(--hairline); border-radius:12px; padding:12px; margin-bottom:10px; display:flex; align-items:center; justify-content:between; gap:8px; }
+  .exercise-name{ font-size:14px; font-weight:600; flex:1; }
+  .exercise-sets-reps{ font-size:12px; color:var(--text-dim); }
+  .exercise-controls{ display:flex; gap:6px; }
+  .exercise-btn{ width:28px; height:28px; border-radius:6px; border:none; background:var(--tile); color:#fff; cursor:pointer; font-size:16px; }
+  .exercise-btn:active{ transform:scale(0.9); }
+  .library-filter{ display:flex; gap:4px; flex-wrap:wrap; margin-bottom:16px; }
+  .filter-tag{ padding:6px 12px; background:var(--tile-2); border:1px solid var(--hairline); border-radius:20px; font-size:12px; cursor:pointer; color:var(--text-dim); }
+  .filter-tag.active{ background:var(--accent); border-color:var(--accent); color:#0D0D0D; font-weight:600; }
+  .exercise-grid{ display:grid; grid-template-columns:1fr; gap:8px; }
+  .exercise-lib-item{ background:var(--tile-2); border:1px solid var(--hairline); border-radius:12px; padding:12px; cursor:pointer; transition:all .15s ease; }
+  .exercise-lib-item:active{ background:var(--tile); border-color:var(--accent); }
+  .exercise-lib-name{ font-size:14px; font-weight:600; margin-bottom:4px; }
+  .exercise-lib-muscle{ font-size:12px; color:var(--text-dim); }
+  .plan-name-input{ width:100%; height:48px; background:var(--tile-2); border:1px solid var(--hairline); border-radius:12px; color:#fff; font-size:15px; font-weight:600; padding:0 12px; margin-bottom:20px; outline:none; }
+  .plan-name-input:focus{ border-color:var(--accent); }
+  .section-label{ font-size:13px; color:var(--text-dim); font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em; }
 </style>
 </head>
 <body>
@@ -148,537 +189,582 @@
   </header>
 
   <!-- ============ HOME VIEW ============ -->
-  <main id="view-home" class="view active px-5 pb-32">
-
-    <section class="tap hero-glow rounded-[32px] p-6 mb-6" style="background:var(--accent); color:#0D0D0D;" id="hero-card">
-      <div class="flex items-center justify-between">
-        <span class="text-[11px] font-bold tracking-[0.14em] px-3 py-1 rounded-full" style="background:rgba(13,13,13,0.1)">DZISIEJSZY TRENING</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-      </div>
-      <h2 class="text-[44px] font-black leading-[0.95] mt-4 tracking-tight" id="today-plan-name">PUSH</h2>
-      <div class="flex items-center gap-4 mt-3 mb-6">
-        <div class="flex items-center gap-1.5">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5 17.5 17.5M2 4l3 3M22 20l-3-3M17 4l3 3-3 3M4 17l-3 3 3 3M8.5 4.5l11 11"/></svg>
-          <span class="text-[14px] font-semibold" id="today-plan-count">8 ćwiczeń</span>
-        </div>
-        <div class="w-1 h-1 rounded-full" style="background:#0D0D0D; opacity:.4"></div>
-        <div class="flex items-center gap-1.5">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          <span class="text-[14px] font-semibold" id="today-plan-time">ok. 45 min</span>
-        </div>
-      </div>
-      <button id="btn-start" class="tap w-full h-[56px] rounded-2xl flex items-center justify-center gap-2 font-bold text-[16px]" style="background:#0D0D0D; color:var(--accent);">
-        START TRENING
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-    </section>
-
-    <section class="mb-6">
-      <h3 class="text-[18px] font-bold mb-3 px-1">Moja Aktywność</h3>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="rounded-3xl p-4" style="background:var(--tile)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M17 5h3a2 2 0 0 1-2 4M7 5H4a2 2 0 0 0 2 4"/></svg>
-          <p class="text-[24px] font-extrabold leading-none" id="stat-workouts">0</p>
-          <p class="text-[13px] mt-1" style="color:var(--text-dim)">treningów</p>
-        </div>
-        <div class="rounded-3xl p-4" style="background:var(--tile)">
-          <div class="relative w-fit mb-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-            <span class="streak-dot absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full" style="background:var(--accent)"></span>
+  <main id="view-home" class="view px-5 pb-32">
+    <div class="mb-6">
+      <div class="hero-glow rounded-3xl p-6" style="background:var(--tile); border:1px solid var(--hairline)">
+        <p class="text-[14px]" style="color:var(--text-dim); margin-bottom:6px;">DZISIEJSZY TRENING</p>
+        <h2 id="today-workout-name" class="text-[32px] font-black leading-tight mb-2">—</h2>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-[14px]" style="color:var(--text-dim)">⏱</span>
+            <span id="today-workout-duration" class="text-[14px]" style="color:var(--text-dim)">—</span>
           </div>
-          <p class="text-[24px] font-extrabold leading-none"><span id="stat-streak">0</span> <span class="text-[14px] font-semibold" style="color:var(--text-dim)">dni</span></p>
-          <p class="text-[13px] mt-1" style="color:var(--text-dim)">seria</p>
+          <div class="flex items-center gap-2">
+            <span class="text-[14px]" style="color:var(--text-dim)">💪</span>
+            <span id="today-workout-exercises" class="text-[14px]" style="color:var(--text-dim)">—</span>
+          </div>
         </div>
-        <div class="rounded-3xl p-4" style="background:var(--tile)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
-          <p class="text-[24px] font-extrabold leading-none"><span id="stat-tonnage">0</span> <span class="text-[14px] font-semibold" style="color:var(--text-dim)">kg</span></p>
-          <p class="text-[13px] mt-1" style="color:var(--text-dim)">podniesiony ciężar</p>
-        </div>
-        <div class="rounded-3xl p-4" style="background:var(--tile)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6M12 2v3"/></svg>
-          <p class="text-[24px] font-extrabold leading-none"><span id="stat-hours">0</span> <span class="text-[14px] font-semibold" style="color:var(--text-dim)">h</span></p>
-          <p class="text-[13px] mt-1" style="color:var(--text-dim)">czas łączny</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="mb-6">
-      <div class="flex items-center justify-between mb-3 px-1">
-        <h3 class="text-[18px] font-bold">Progres</h3>
-        <span class="text-[13px] font-medium" style="color:var(--text-dim)">od pierwszego treningu</span>
-      </div>
-      <div class="rounded-3xl p-2" style="background:var(--tile)" id="progress-list"></div>
-    </section>
-
-    <section class="tap rounded-3xl px-5 py-4 flex items-center justify-between" style="background:var(--tile-2); border:1px solid var(--hairline)">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--tile)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        </div>
-        <div>
-          <p class="text-[11px] font-semibold tracking-wide" style="color:var(--text-dim)">NASTĘPNY TRENING</p>
-          <p class="text-[16px] font-bold mt-0.5" id="next-plan-name">PULL</p>
-        </div>
-      </div>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-    </section>
-  </main>
-
-  <!-- ============ TRENINGI VIEW ============ -->
-  <main id="view-workouts" class="view px-5 pb-32">
-    <h2 class="text-[22px] font-extrabold mb-4 px-1">Historia treningów</h2>
-    <div id="history-list" class="flex flex-col gap-3"></div>
-  </main>
-
-  <!-- ============ PROGRES VIEW ============ -->
-  <main id="view-progress" class="view px-5 pb-32">
-    <h2 class="text-[22px] font-extrabold mb-4 px-1">Progres siłowy</h2>
-    <div id="progress-list-full" class="flex flex-col gap-3"></div>
-  </main>
-
-  <!-- ============ PROFIL VIEW ============ -->
-  <main id="view-profile" class="view px-5 pb-32">
-    <h2 class="text-[22px] font-extrabold mb-4 px-1">Profil</h2>
-    <div class="rounded-3xl p-5 flex items-center gap-4 mb-4" style="background:var(--tile)">
-      <div class="w-16 h-16 rounded-full flex items-center justify-center" style="background:var(--tile-2)">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </div>
-      <div>
-        <p class="text-[18px] font-bold" id="profile-name">Sportowiec</p>
-        <p class="text-[13px]" style="color:var(--text-dim)">Członek od 2026</p>
+        <button id="btn-start" class="tap w-full py-3 rounded-2xl font-bold text-[16px]" style="background:var(--accent); color:#0D0D0D">START TRENING</button>
       </div>
     </div>
-    <div class="rounded-3xl p-2 mb-4" style="background:var(--tile)">
-      <div class="flex items-center justify-between px-4 py-3.5"><span class="text-[14px]" style="color:var(--text-dim)">Wszystkie treningi</span><span class="font-bold" id="profile-total">0</span></div>
-      <div class="h-px mx-4" style="background:var(--hairline)"></div>
-      <div class="flex items-center justify-between px-4 py-3.5"><span class="text-[14px]" style="color:var(--text-dim)">Łączny tonaż</span><span class="font-bold"><span id="profile-tonnage">0</span> kg</span></div>
-      <div class="h-px mx-4" style="background:var(--hairline)"></div>
-      <div class="flex items-center justify-between px-4 py-3.5"><span class="text-[14px]" style="color:var(--text-dim)">Łączny czas</span><span class="font-bold"><span id="profile-hours">0</span> h</span></div>
+
+    <div>
+      <div class="flex items-center justify-between mb-4 px-1">
+        <p class="text-[18px] font-bold">Ostatnie treningi</p>
+        <a href="#" onclick="switchView('history'); return false;" class="text-[14px]" style="color:var(--accent)">Wszystkie</a>
+      </div>
+      <div id="home-recent-workouts"></div>
     </div>
-    <button id="btn-reset" class="tap w-full h-[52px] rounded-2xl font-bold text-[15px]" style="background:var(--tile); color:#FF6B6B;">Wyczyść dane aplikacji</button>
   </main>
 
-  <!-- ============ BOTTOM NAV ============ -->
-  <nav class="fixed bottom-0 left-0 right-0 nav-blur safe-bottom" style="border-top:1px solid var(--hairline)">
-    <div class="app-shell !min-h-0 flex items-center justify-between px-6 pt-2.5" style="box-shadow:none;">
-      <button class="nav-item tap flex flex-col items-center gap-1 flex-1" data-view="home" data-active="true">
-        <div class="nav-pill w-12 h-8 rounded-full flex items-center justify-center"><svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></div>
-        <span class="nav-label text-[11px] font-semibold">Home</span>
-      </button>
-      <button class="nav-item tap flex flex-col items-center gap-1 flex-1" data-view="workouts" data-active="false">
-        <div class="nav-pill w-12 h-8 rounded-full flex items-center justify-center"><svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5 17.5 17.5M2 4l3 3M22 20l-3-3M17 4l3 3-3 3M4 17l-3 3 3 3M8.5 4.5l11 11"/></svg></div>
-        <span class="nav-label text-[11px] font-semibold">Treningi</span>
-      </button>
-      <button class="nav-item tap flex flex-col items-center gap-1 flex-1" data-view="progress" data-active="false">
-        <div class="nav-pill w-12 h-8 rounded-full flex items-center justify-center"><svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div>
-        <span class="nav-label text-[11px] font-semibold">Progres</span>
-      </button>
-      <button class="nav-item tap flex flex-col items-center gap-1 flex-1" data-view="profile" data-active="false">
-        <div class="nav-pill w-12 h-8 rounded-full flex items-center justify-center"><svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <span class="nav-label text-[11px] font-semibold">Profil</span>
-      </button>
+  <!-- ============ PLANS VIEW ============ -->
+  <main id="view-plans" class="view px-5 pb-32">
+    <div class="flex items-center justify-between mb-6 px-1">
+      <p class="text-[22px] font-extrabold">Moje Plany</p>
     </div>
+    <button id="btn-create-plan" class="tap w-full py-3 rounded-2xl font-bold text-[16px] mb-6" style="background:var(--accent); color:#0D0D0D">+ STWÓRZ NOWY PLAN</button>
+    <div id="plans-list"></div>
+  </main>
+
+  <!-- ============ STATS VIEW ============ -->
+  <main id="view-stats" class="view px-5 pb-32">
+    <div class="text-center py-12">
+      <p class="text-[14px] mb-2" style="color:var(--text-dim)">Statystyki</p>
+      <h2 class="text-[24px] font-extrabold mb-6">Twoje Osiągnięcia</h2>
+      <div id="stats-container"></div>
+    </div>
+  </main>
+
+  <!-- ============ HISTORY VIEW ============ -->
+  <main id="view-history" class="view px-5 pb-32">
+    <div>
+      <h2 class="text-[26px] font-extrabold mb-6 px-1">Historia Treningów</h2>
+      <div id="history-list"></div>
+    </div>
+  </main>
+
+  <!-- ============ SETTINGS VIEW ============ -->
+  <main id="view-settings" class="view px-5 pb-32">
+    <div>
+      <h2 class="text-[26px] font-extrabold mb-6 px-1">Ustawienia</h2>
+      <div id="settings-container"></div>
+    </div>
+  </main>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav-blur fixed bottom-0 left-0 right-0 flex items-center justify-around safe-bottom px-2 py-3" style="max-width:428px; margin:0 auto;">
+    <button class="nav-item tap flex flex-col items-center gap-1 flex-1 py-2 rounded-2xl" data-view="home" data-active="true">
+      <span class="nav-pill w-9 h-9 rounded-full flex items-center justify-center transition" style="background:rgba(208,253,56,0.12)">
+        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </span>
+      <span class="nav-label text-[11px] font-semibold">Start</span>
+    </button>
+
+    <button class="nav-item tap flex flex-col items-center gap-1 flex-1 py-2 rounded-2xl" data-view="plans" data-active="false">
+      <span class="nav-pill w-9 h-9 rounded-full flex items-center justify-center transition" style="background:transparent">
+        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+      </span>
+      <span class="nav-label text-[11px] font-semibold">Plany</span>
+    </button>
+
+    <button class="nav-item tap flex flex-col items-center gap-1 flex-1 py-2 rounded-2xl" data-view="stats" data-active="false">
+      <span class="nav-pill w-9 h-9 rounded-full flex items-center justify-center transition" style="background:transparent">
+        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17v-4M8 17v-2"/></svg>
+      </span>
+      <span class="nav-label text-[11px] font-semibold">Statystyki</span>
+    </button>
+
+    <button class="nav-item tap flex flex-col items-center gap-1 flex-1 py-2 rounded-2xl" data-view="history" data-active="false">
+      <span class="nav-pill w-9 h-9 rounded-full flex items-center justify-center transition" style="background:transparent">
+        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </span>
+      <span class="nav-label text-[11px] font-semibold">Historia</span>
+    </button>
+
+    <button class="nav-item tap flex flex-col items-center gap-1 flex-1 py-2 rounded-2xl" data-view="settings" data-active="false">
+      <span class="nav-pill w-9 h-9 rounded-full flex items-center justify-center transition" style="background:transparent">
+        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m0 5.08l-4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08 0l4.24 4.24M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
+      </span>
+      <span class="nav-label text-[11px] font-semibold">Ustawienia</span>
+    </button>
   </nav>
-</div>
 
-<!-- ============ MODAL: PROWADZENIE TRENINGU ============ -->
-<div id="modal-overlay">
-  <div class="app-shell !min-h-0 h-full flex flex-col" style="box-shadow:none;">
-    <div class="safe-top px-5 pb-4 flex items-center justify-between" style="border-bottom:1px solid var(--hairline)">
-      <div>
-        <p class="text-[11px] font-semibold tracking-wide" style="color:var(--text-dim)" id="modal-plan-label">TRENING PUSH</p>
-        <p class="text-[22px] font-extrabold" id="modal-timer">00:00</p>
-      </div>
+  <!-- ============ WORKOUT MODAL ============ -->
+  <div id="modal-overlay" style="background:var(--bg)">
+    <header class="flex items-center justify-between px-6 pt-4 pb-3">
+      <h2 id="modal-plan-label" class="text-[22px] font-extrabold">—</h2>
       <button id="btn-close-modal" class="tap w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--tile)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        <span style="font-size:20px">✕</span>
       </button>
+    </header>
+
+    <div class="flex items-center justify-center gap-4 px-6 py-3" style="border-bottom:1px solid var(--hairline)">
+      <div class="flex items-center gap-2">
+        <span style="font-size:14px; color:var(--text-dim)">⏱</span>
+        <span id="modal-timer" class="text-[18px] font-bold">00:00</span>
+      </div>
+      <div class="flex-1" style="height:1px; background:var(--hairline)"></div>
+      <div class="flex items-center gap-2">
+        <span style="font-size:14px; color:var(--text-dim)">💪</span>
+        <span id="modal-tonnage" class="text-[18px] font-bold">0 kg</span>
+      </div>
     </div>
 
-    <div id="modal-exercise-list" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-5"></div>
-
-    <div class="px-5 safe-bottom pt-3" style="border-top:1px solid var(--hairline)">
-      <button id="btn-finish" class="tap w-full h-[56px] rounded-2xl font-bold text-[16px] mb-3" style="background:var(--accent); color:#0D0D0D;">ZAKOŃCZ TRENING</button>
+    <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div id="modal-exercise-list"></div>
     </div>
-  </div>
-</div>
 
-<!-- ============ WŁASNY DIALOG POTWIERDZENIA (zamiast confirm()) ============ -->
-<div id="confirm-overlay" class="dialog-overlay">
-  <div class="dialog-sheet safe-bottom">
-    <p class="dialog-title" id="confirm-title">Potwierdź akcję</p>
-    <p class="dialog-message" id="confirm-message"></p>
-    <div class="dialog-actions">
-      <button id="confirm-cancel" class="dialog-btn dialog-btn-secondary">Anuluj</button>
-      <button id="confirm-ok" class="dialog-btn dialog-btn-primary">Potwierdź</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============ DIALOG: PIERWSZE URUCHOMIENIE — IMIĘ UŻYTKOWNIKA ============ -->
-<div id="name-overlay" class="dialog-overlay">
-  <div class="dialog-sheet safe-bottom">
-    <p class="dialog-title">Jak masz na imię?</p>
-    <p class="dialog-message">Spersonalizujemy dzięki temu Twoją aplikację treningową.</p>
-    <input id="name-input" type="text" placeholder="Wpisz swoje imię" maxlength="24" autocomplete="off" class="name-input">
-    <div class="dialog-actions">
-      <button id="name-submit" class="dialog-btn dialog-btn-primary" style="width:100%">Zaczynamy</button>
+    <div class="flex gap-3 px-6 py-4" style="border-top:1px solid var(--hairline)">
+      <button id="btn-finish" class="tap flex-1 py-3 rounded-2xl font-bold text-[15px]" style="background:var(--accent); color:#0D0D0D">ZAPISZ TRENING</button>
     </div>
   </div>
-</div>
 
-<div id="toast">Zapisano trening 💪</div>
+  <!-- ============ MODAL KREATORA PLANU ============ -->
+  <div id="modal-plan-creator" class="modal-full">
+    <div class="modal-header">
+      <h2 class="modal-header-title">Nowy Plan Treningowy</h2>
+      <button id="btn-close-creator" class="modal-close-btn">✕</button>
+    </div>
+    <div class="modal-content">
+      <label class="section-label">Nazwa Planu</label>
+      <input id="creator-plan-name" type="text" class="plan-name-input" placeholder="np. FBW, Push Pull Legs...">
+
+      <label class="section-label">Dni Tygodnia</label>
+      <div class="day-selector" id="creator-day-selector"></div>
+
+      <label class="section-label">Ćwiczenia</label>
+      <div id="creator-exercise-list"></div>
+      <button id="btn-add-exercise" class="btn-secondary">+ DODAJ ĆWICZENIE</button>
+    </div>
+    <div class="modal-footer">
+      <button id="btn-save-plan" class="btn-primary">ZAPISZ PLAN</button>
+    </div>
+  </div>
+
+  <!-- ============ MODAL BIBLIOTEKI ĆWICZEŃ ============ -->
+  <div id="modal-exercise-library" class="modal-full">
+    <div class="modal-header">
+      <h2 class="modal-header-title">Biblioteka Ćwiczeń</h2>
+      <button id="btn-close-library" class="modal-close-btn">✕</button>
+    </div>
+    <div class="modal-content">
+      <label class="section-label">Filtruj po Partii</label>
+      <div class="library-filter" id="library-muscle-filter"></div>
+      <div class="exercise-grid" id="library-exercise-grid"></div>
+    </div>
+  </div>
+
+  <!-- ============ DIALOGI ============ -->
+  <div id="modal-name-dialog" class="dialog-overlay">
+    <div class="dialog-sheet">
+      <h3 class="dialog-title">Jakie jest Twoje Imię?</h3>
+      <p class="dialog-message">Użyjemy go do personalizacji Twoich doświadczeń treningowych.</p>
+      <input id="dialog-name-input" type="text" class="name-input" placeholder="np. Tomasz" autocomplete="off">
+      <div class="dialog-actions">
+        <button id="dialog-cancel-btn" class="dialog-btn dialog-btn-secondary">Pomiń</button>
+        <button id="dialog-confirm-btn" class="dialog-btn dialog-btn-primary">Zatwierdź</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-confirm-dialog" class="dialog-overlay">
+    <div class="dialog-sheet">
+      <h3 id="confirm-dialog-title" class="dialog-title">—</h3>
+      <p id="confirm-dialog-message" class="dialog-message">—</p>
+      <div class="dialog-actions">
+        <button id="confirm-cancel-btn" class="dialog-btn dialog-btn-secondary">Anuluj</button>
+        <button id="confirm-ok-btn" class="dialog-btn dialog-btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+</div>
 
 <script>
-/* =========================================================
-   BAZA PLANÓW I ĆWICZEŃ (na sztywno)
-   ========================================================= */
-const PLANS = {
-  PUSH: {
-    estMin: 45,
+const STORAGE_KEY = 'forge_db_v2';
+const DAYS_SHORT = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'];
+const DAYS_FULL = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+
+/* ========== EXERCISE LIBRARY ========== */
+const EXERCISE_LIBRARY = {
+  'Klatka': [
+    { name: 'Wyciskanie sztangi leżąc', muscle: 'Klatka' },
+    { name: 'Wyciskanie hantli leżąc', muscle: 'Klatka' },
+    { name: 'Rozpiętki na maszynie', muscle: 'Klatka' },
+    { name: 'Push-ups', muscle: 'Klatka' },
+    { name: 'Prasy nożne w dół', muscle: 'Klatka' },
+  ],
+  'Plecy': [
+    { name: 'Przyciągi sztangi', muscle: 'Plecy' },
+    { name: 'Przyciągi hantli', muscle: 'Plecy' },
+    { name: 'Wiosłowania na maszynie', muscle: 'Plecy' },
+    { name: 'Podciągi sztangi', muscle: 'Plecy' },
+    { name: 'Podciągi na maszynie', muscle: 'Plecy' },
+  ],
+  'Nogi': [
+    { name: 'Przysiady ze sztangą', muscle: 'Nogi' },
+    { name: 'Prasa nożna', muscle: 'Nogi' },
+    { name: 'Leg Curls', muscle: 'Nogi' },
+    { name: 'Wyciągi nóg', muscle: 'Nogi' },
+    { name: 'Lunges', muscle: 'Nogi' },
+  ],
+  'Barki': [
+    { name: 'Wyciskanie sztangi nad głową', muscle: 'Barki' },
+    { name: 'Podnoszenia sztangi boczne', muscle: 'Barki' },
+    { name: 'Podnoszenia sztangi przód', muscle: 'Barki' },
+    { name: 'Reverse Pec Deck', muscle: 'Barki' },
+  ],
+  'Biceps': [
+    { name: 'Zawinięcia sztangi stojąc', muscle: 'Biceps' },
+    { name: 'Zawinięcia hantli', muscle: 'Biceps' },
+    { name: 'Zawinięcia na maszynie', muscle: 'Biceps' },
+    { name: 'Zawinięcia concentracyjne', muscle: 'Biceps' },
+  ],
+  'Triceps': [
+    { name: 'Wyciskanie żelaza w dół', muscle: 'Triceps' },
+    { name: 'Wyciskanie linki w dół', muscle: 'Triceps' },
+    { name: 'Skłony na fotel', muscle: 'Triceps' },
+    { name: 'Wyciskanie hantli zza głowy', muscle: 'Triceps' },
+  ],
+  'Brzuch': [
+    { name: 'Zawinięcia na maszynie', muscle: 'Brzuch' },
+    { name: 'Zawinięcia brzucha na równi pochyłej', muscle: 'Brzuch' },
+    { name: 'Drążek wisząc', muscle: 'Brzuch' },
+    { name: 'Nosidle drążka', muscle: 'Brzuch' },
+  ]
+};
+
+/* ========== DOMYŚLNE PLANY ========== */
+const DEFAULT_PLANS = [
+  {
+    id: 'push',
+    name: 'PUSH',
+    daysOfWeek: [0],
     exercises: [
-      { name:'Wyciskanie sztangi płaskiej', muscle:'klatka' },
-      { name:'Wyciskanie hantli na skosie', muscle:'klatka' },
-      { name:'Dipy na poręczach', muscle:'klatka' },
-      { name:'Wyciskanie żołnierskie', muscle:'barki' },
-      { name:'Unoszenie hantli bokiem', muscle:'barki' },
-      { name:'Francuskie na triceps', muscle:'triceps' },
+      { name: 'Wyciskanie sztangi leżąc', muscle: 'Klatka', defaultSets: 4, defaultReps: 8 },
+      { name: 'Wyciskanie hantli leżąc', muscle: 'Klatka', defaultSets: 3, defaultReps: 10 },
+      { name: 'Wyciskanie sztangi nad głową', muscle: 'Barki', defaultSets: 3, defaultReps: 10 },
+      { name: 'Zawinięcia sztangi stojąc', muscle: 'Biceps', defaultSets: 3, defaultReps: 12 },
     ]
   },
-  PULL: {
-    estMin: 42,
+  {
+    id: 'pull',
+    name: 'PULL',
+    daysOfWeek: [2],
     exercises: [
-      { name:'Podciąganie na drążku', muscle:'plecy' },
-      { name:'Wiosłowanie sztangą', muscle:'plecy' },
-      { name:'Wiosłowanie hantlą w opadzie', muscle:'plecy' },
-      { name:'Uginanie ze sztangą na biceps', muscle:'biceps' },
-      { name:'Uginanie młotkowe', muscle:'biceps' },
-      { name:'Face pull na wyciągu', muscle:'barki' },
+      { name: 'Przyciągi sztangi', muscle: 'Plecy', defaultSets: 4, defaultReps: 8 },
+      { name: 'Wiosłowania na maszynie', muscle: 'Plecy', defaultSets: 3, defaultReps: 10 },
+      { name: 'Wyciskanie żelaza w dół', muscle: 'Triceps', defaultSets: 3, defaultReps: 12 },
+      { name: 'Podnoszenia sztangi boczne', muscle: 'Barki', defaultSets: 3, defaultReps: 12 },
     ]
   },
-  LEGS: {
-    estMin: 50,
+  {
+    id: 'legs',
+    name: 'LEGS',
+    daysOfWeek: [4],
     exercises: [
-      { name:'Przysiady ze sztangą', muscle:'nogi' },
-      { name:'Wyciskanie nóg na suwnicy', muscle:'nogi' },
-      { name:'Martwy ciąg rumuński', muscle:'nogi' },
-      { name:'Wypychanie bioder ze sztangą', muscle:'nogi' },
-      { name:'Uginanie nóg leżąc', muscle:'nogi' },
-      { name:'Wspięcia na łydki stojąc', muscle:'nogi' },
+      { name: 'Przysiady ze sztangą', muscle: 'Nogi', defaultSets: 4, defaultReps: 8 },
+      { name: 'Leg Curls', muscle: 'Nogi', defaultSets: 3, defaultReps: 10 },
+      { name: 'Wyciągi nóg', muscle: 'Nogi', defaultSets: 3, defaultReps: 12 },
+      { name: 'Zawinięcia na maszynie', muscle: 'Brzuch', defaultSets: 3, defaultReps: 15 },
     ]
   }
-};
-const PLAN_ORDER = ['PUSH','PULL','LEGS'];
-const MUSCLE_GROUPS = [
-  { key:'klatka', label:'Klatka' },
-  { key:'plecy', label:'Plecy' },
-  { key:'nogi', label:'Nogi' },
 ];
-const BASE_WEIGHTS = {
-  'Wyciskanie sztangi płaskiej':60, 'Wyciskanie hantli na skosie':22, 'Dipy na poręczach':10,
-  'Wyciskanie żołnierskie':40, 'Unoszenie hantli bokiem':10, 'Francuskie na triceps':25,
-  'Podciąganie na drążku':15, 'Wiosłowanie sztangą':55, 'Wiosłowanie hantlą w opadzie':24,
-  'Uginanie ze sztangą na biceps':30, 'Uginanie młotkowe':14, 'Face pull na wyciągu':20,
-  'Przysiady ze sztangą':80, 'Wyciskanie nóg na suwnicy':120, 'Martwy ciąg rumuński':70,
-  'Wypychanie bioder ze sztangą':90, 'Uginanie nóg leżąc':40, 'Wspięcia na łydki stojąc':60
+
+/* ========== BAZA DANYCH ========== */
+const emptyDB = {
+  profile: { name: '', createdDate: new Date().toISOString() },
+  customPlans: [],
+  history: [],
+  personalRecords: []
 };
-/* =========================================================
-   PAMIĘĆ LOKALNA (localStorage)
-   Aplikacja startuje bez żadnych treningów — wszystkie statystyki
-   (treningi, seria, tonaż, czas, progres na partie) budują się
-   wyłącznie z sesji faktycznie ukończonych i zapisanych przez
-   użytkownika przyciskiem "ZAKOŃCZ TRENING".
-   ========================================================= */
-const STORAGE_KEY = 'forge_tracker_v1';
-
-function emptyDB(){ return { history: [] }; }
-
-function loadDB(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){ return JSON.parse(raw); }
-  }catch(e){ console.warn('Błąd odczytu localStorage', e); }
-  const fresh = emptyDB();
-  saveDB(fresh);
-  return fresh;
-}
-function saveDB(db){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }
-  catch(e){ console.warn('Błąd zapisu localStorage', e); }
-}
 
 let db = loadDB();
+let profile = db.profile || {};
+let activeWorkout = null;
+let workoutStart = 0;
+let timerInterval = null;
+let creatorState = { selectedDays: [], exercises: [] };
+let libraryFilterState = 'Wszystkie';
 
-/* =========================================================
-   PROFIL UŻYTKOWNIKA (imię) — pytamy tylko przy pierwszym uruchomieniu
-   ========================================================= */
-const PROFILE_KEY = 'forge_profile_v1';
-
-function loadProfile(){
-  try{
-    const raw = localStorage.getItem(PROFILE_KEY);
-    if(raw) return JSON.parse(raw);
-  }catch(e){ console.warn('Błąd odczytu profilu', e); }
-  return null;
-}
-function saveProfile(p){
-  try{ localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); }
-  catch(e){ console.warn('Błąd zapisu profilu', e); }
-}
-
-let profile = loadProfile();
-
-function applyProfileName(name){
-  document.getElementById('greeting-name').textContent = 'Witaj ' + name;
-  document.getElementById('profile-name').textContent = name;
-}
-
-function showNameModal(){
-  const overlay = document.getElementById('name-overlay');
-  overlay.classList.add('open');
-  setTimeout(()=> document.getElementById('name-input').focus(), 200);
-}
-
-function submitName(){
-  const input = document.getElementById('name-input');
-  const name = input.value.trim() || 'Sportowcu';
-  profile = { name };
-  saveProfile(profile);
-  applyProfileName(name);
-  document.getElementById('name-overlay').classList.remove('open');
-}
-
-document.getElementById('name-submit').addEventListener('click', submitName);
-document.getElementById('name-input').addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter') submitName();
-});
-
-/* =========================================================
-   WŁASNY DIALOG POTWIERDZENIA (zamiast window.confirm,
-   które bywa blokowane w podglądach typu artifact/iframe)
-   ========================================================= */
-function showConfirm(message, opts = {}){
-  return new Promise((resolve)=>{
-    const overlay = document.getElementById('confirm-overlay');
-    const okBtn = document.getElementById('confirm-ok');
-    const cancelBtn = document.getElementById('confirm-cancel');
-
-    document.getElementById('confirm-title').textContent = opts.title || 'Potwierdź akcję';
-    document.getElementById('confirm-message').textContent = message;
-    okBtn.textContent = opts.confirmText || 'Potwierdź';
-    okBtn.style.background = opts.danger ? '#FF6B6B' : 'var(--accent)';
-    okBtn.style.color = opts.danger ? '#fff' : '#0D0D0D';
-
-    overlay.classList.add('open');
-
-    function cleanup(result){
-      overlay.classList.remove('open');
-      okBtn.removeEventListener('click', onOk);
-      cancelBtn.removeEventListener('click', onCancel);
-      resolve(result);
+function loadDB(){
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if(stored){
+    try {
+      return JSON.parse(stored);
+    } catch(e) {
+      return { ...emptyDB, customPlans: [...DEFAULT_PLANS] };
     }
-    function onOk(){ cleanup(true); }
-    function onCancel(){ cleanup(false); }
-    okBtn.addEventListener('click', onOk);
-    cancelBtn.addEventListener('click', onCancel);
+  }
+  const init = { ...emptyDB, customPlans: [...DEFAULT_PLANS] };
+  saveDB(init);
+  return init;
+}
+
+function saveDB(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function formatDate(dateStr){
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diffDays = Math.floor((now - d) / (1000*60*60*24));
+  if(diffDays === 0) return 'Dzisiaj';
+  if(diffDays === 1) return 'Wczoraj';
+  if(diffDays < 7) return `${diffDays} dni temu`;
+  return d.toLocaleDateString('pl-PL');
+}
+
+function getLastWeight(exerciseName){
+  for(let i = db.history.length - 1; i >= 0; i--){
+    const record = db.history[i];
+    for(let ex of record.exercises){
+      if(ex.name === exerciseName){
+        for(let set of ex.sets){
+          if(set.weight > 0) return set.weight;
+        }
+      }
+    }
+  }
+  return 10;
+}
+
+function getPersonalRecord(exerciseName){
+  let maxWeight = 0;
+  for(let record of db.history){
+    for(let ex of record.exercises){
+      if(ex.name === exerciseName){
+        for(let set of ex.sets){
+          if(set.done && set.weight > maxWeight) maxWeight = set.weight;
+        }
+      }
+    }
+  }
+  return maxWeight;
+}
+
+function switchView(viewName){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(`view-${viewName}`).classList.add('active');
+  
+  document.querySelectorAll('.nav-item').forEach(item => {
+    const isActive = item.dataset.view === viewName;
+    item.dataset.active = isActive;
   });
 }
 
-/* =========================================================
-   LOGIKA / OBLICZENIA DYNAMICZNE
-   ========================================================= */
-function getTodayPlan(){ return PLAN_ORDER[db.history.length % PLAN_ORDER.length]; }
-function getNextPlan(){ return PLAN_ORDER[(db.history.length + 1) % PLAN_ORDER.length]; }
-
-function calcStreak(history){
-  if(!history.length) return 0;
-  const dateSet = new Set(history.map(w => new Date(w.date).toDateString()));
-  let cursor = new Date();
-  if(!dateSet.has(cursor.toDateString())) cursor.setDate(cursor.getDate()-1);
-  let streak = 0;
-  while(dateSet.has(cursor.toDateString())){
-    streak++;
-    cursor.setDate(cursor.getDate()-1);
-  }
-  return streak;
+function applyProfileName(name){
+  profile.name = name;
+  db.profile = profile;
+  saveDB(db);
+  document.getElementById('greeting-name').textContent = name;
 }
 
-function calcTotalTonnage(history){
-  return history.reduce((sum,w)=> sum + (w.tonnage||0), 0);
-}
-function calcTotalHours(history){
-  const minutes = history.reduce((sum,w)=> sum + (w.durationMin||0), 0);
-  return minutes/60;
-}
-function formatHours(h){
-  return h < 10 ? (Math.round(h*10)/10).toString().replace('.0','') : Math.round(h).toString();
-}
-
-function calcMuscleProgress(history, muscleKey){
-  const sessions = [];
-  history
-    .slice()
-    .sort((a,b)=> new Date(a.date) - new Date(b.date))
-    .forEach(w=>{
-      let max = 0; let found=false;
-      w.exercises.forEach(ex=>{
-        if(ex.muscle === muscleKey){
-          ex.sets.forEach(st=>{ if(st.done && st.weight > max){ max = st.weight; found=true; } });
-        }
-      });
-      if(found) sessions.push(max);
-    });
-  if(sessions.length < 2) return 0;
-  return sessions[sessions.length-1] - sessions[0];
+async function showConfirm(message, options = {}){
+  return new Promise(resolve => {
+    const title = options.title || 'Potwierdzenie';
+    const confirmText = options.confirmText || 'OK';
+    document.getElementById('confirm-dialog-title').textContent = title;
+    document.getElementById('confirm-dialog-message').textContent = message;
+    document.getElementById('confirm-ok-btn').textContent = confirmText;
+    document.getElementById('modal-confirm-dialog').classList.add('open');
+    
+    const cleanup = () => {
+      document.getElementById('modal-confirm-dialog').classList.remove('open');
+      document.getElementById('confirm-ok-btn').removeEventListener('click', onOk);
+      document.getElementById('confirm-cancel-btn').removeEventListener('click', onCancel);
+    };
+    const onOk = () => { cleanup(); resolve(true); };
+    const onCancel = () => { cleanup(); resolve(false); };
+    
+    document.getElementById('confirm-ok-btn').addEventListener('click', onOk);
+    document.getElementById('confirm-cancel-btn').addEventListener('click', onCancel);
+  });
 }
 
-/* =========================================================
-   RENDER: HOME
-   ========================================================= */
+function showNameModal(){
+  document.getElementById('modal-name-dialog').classList.add('open');
+  document.getElementById('dialog-name-input').focus();
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 2200);
+}
+
+function getTodayPlan(){
+  const today = new Date().getDay();
+  return db.customPlans.find(plan => plan.daysOfWeek.includes(today)) || null;
+}
+
+/* ========== RENDER HOME ========== */
 function renderHome(){
   const todayPlan = getTodayPlan();
-  const nextPlan = getNextPlan();
-  const plan = PLANS[todayPlan];
-
-  document.getElementById('today-plan-name').textContent = todayPlan;
-  document.getElementById('today-plan-count').textContent = plan.exercises.length + ' ćwiczeń';
-  document.getElementById('today-plan-time').textContent = 'ok. ' + plan.estMin + ' min';
-  document.getElementById('next-plan-name').textContent = nextPlan;
-
-  document.getElementById('stat-workouts').textContent = db.history.length;
-  document.getElementById('stat-streak').textContent = calcStreak(db.history);
-  document.getElementById('stat-tonnage').textContent = Math.round(calcTotalTonnage(db.history)).toLocaleString('pl-PL');
-  document.getElementById('stat-hours').textContent = formatHours(calcTotalHours(db.history));
-
-  const maxAbsDelta = Math.max(1, ...MUSCLE_GROUPS.map(m => Math.abs(calcMuscleProgress(db.history, m.key))));
-  const progressHTML = MUSCLE_GROUPS.map((m, idx) => {
-    const delta = calcMuscleProgress(db.history, m.key);
-    const pct = Math.min(100, Math.round((Math.abs(delta)/maxAbsDelta)*100));
-    const sign = delta >= 0 ? '+' : '';
-    return `
-      <div class="flex items-center justify-between px-4 py-3.5">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:var(--tile-2)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 12h8"/></svg>
-          </div>
-          <div>
-            <p class="text-[15px] font-semibold">${m.label}</p>
-            <div class="w-24 h-1 rounded-full progress-track mt-1.5"><div class="h-1 rounded-full progress-fill" style="width:${pct}%"></div></div>
-          </div>
-        </div>
-        <span class="text-[15px] font-bold" style="color:var(--accent)">${sign}${delta} kg</span>
-      </div>
-      ${idx < MUSCLE_GROUPS.length-1 ? '<div class="h-px mx-4" style="background:var(--hairline)"></div>' : ''}
-    `;
-  }).join('');
-  document.getElementById('progress-list').innerHTML = progressHTML;
-}
-
-/* =========================================================
-   RENDER: TRENINGI (historia)
-   ========================================================= */
-function renderHistory(){
-  const el = document.getElementById('history-list');
-  if(!db.history.length){
-    el.innerHTML = `<div class="rounded-3xl p-6 text-center" style="background:var(--tile); color:var(--text-dim)">Brak zapisanych treningów. Zacznij pierwszy trening na ekranie Home!</div>`;
-    return;
+  const card = document.querySelector('[style*="hero-glow"]');
+  
+  if(todayPlan){
+    document.getElementById('today-workout-name').textContent = todayPlan.name;
+    document.getElementById('today-workout-duration').textContent = `~${todayPlan.exercises.length * 10} min`;
+    document.getElementById('today-workout-exercises').textContent = `${todayPlan.exercises.length} ćwiczeń`;
+    document.getElementById('btn-start').textContent = 'START TRENING';
+    document.getElementById('btn-start').style.opacity = '1';
+  } else {
+    document.getElementById('today-workout-name').textContent = 'Dzień Regeneracji';
+    document.getElementById('today-workout-duration').textContent = 'Odpoczywaj';
+    document.getElementById('today-workout-exercises').textContent = 'Zaplanuj trening';
+    document.getElementById('btn-start').textContent = 'PRZEGLĄDAJ PLANY';
+    document.getElementById('btn-start').onclick = () => switchView('plans');
   }
-  const sorted = db.history.slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
-  el.innerHTML = sorted.map(w=>{
-    const d = new Date(w.date);
-    const dateStr = d.toLocaleDateString('pl-PL', { day:'2-digit', month:'short' });
-    return `
-      <div class="rounded-3xl p-4 flex items-center justify-between" style="background:var(--tile)">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl flex items-center justify-center font-extrabold text-[13px]" style="background:var(--accent); color:#0D0D0D">${w.plan}</div>
-          <div>
-            <p class="text-[15px] font-semibold">${dateStr}</p>
-            <p class="text-[13px]" style="color:var(--text-dim)">${w.exercises.length} ćwiczeń · ${w.durationMin} min</p>
-          </div>
-        </div>
-        <p class="text-[15px] font-bold" style="color:var(--accent)">${Math.round(w.tonnage).toLocaleString('pl-PL')} kg</p>
+
+  const recentHtml = db.history.slice(-3).reverse().map(rec => `
+    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:12px; margin-bottom:10px;">
+      <div class="flex items-center justify-between mb-2">
+        <p class="font-bold text-[14px]">${rec.plan}</p>
+        <span class="text-[12px]" style="color:var(--text-dim)">${formatDate(rec.date)}</span>
       </div>
-    `;
-  }).join('');
+      <div class="flex items-center gap-4">
+        <span class="text-[13px]" style="color:var(--text-dim)">⏱ ${rec.durationMin} min</span>
+        <span class="text-[13px]" style="color:var(--text-dim)">💪 ${rec.tonnage.toFixed(0)} kg</span>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('home-recent-workouts').innerHTML = recentHtml || '<p style="color:var(--text-dim); text-align:center; padding:20px;">Brak wykonanych treningów</p>';
 }
 
-/* =========================================================
-   RENDER: PROGRES (pełny widok)
-   ========================================================= */
-function renderProgressFull(){
-  const el = document.getElementById('progress-list-full');
-  el.innerHTML = MUSCLE_GROUPS.map(m=>{
-    const delta = calcMuscleProgress(db.history, m.key);
-    const sign = delta >= 0 ? '+' : '';
-    return `
-      <div class="rounded-3xl p-5" style="background:var(--tile)">
-        <p class="text-[13px]" style="color:var(--text-dim)">${m.label}</p>
-        <p class="text-[32px] font-extrabold mt-1" style="color:var(--accent)">${sign}${delta} <span class="text-[16px] font-semibold" style="color:#fff">kg</span></p>
-        <p class="text-[13px] mt-1" style="color:var(--text-dim)">postęp od pierwszego zarejestrowanego treningu tej partii</p>
+/* ========== RENDER PLANS ========== */
+function renderPlans(){
+  const html = db.customPlans.map(plan => `
+    <div class="plan-card">
+      <p class="plan-card-title">${plan.name}</p>
+      <div class="plan-card-days">
+        ${[0,1,2,3,4,5,6].map(d => `
+          <span class="day-badge ${plan.daysOfWeek.includes(d) ? 'active' : ''}">${DAYS_SHORT[d]}</span>
+        `).join('')}
       </div>
-    `;
-  }).join('');
+      <p style="font-size:12px; color:var(--text-dim); margin-bottom:12px;">${plan.exercises.length} ćwiczeń</p>
+      <div class="plan-card-actions">
+        <button class="btn-small btn-small-primary tap" onclick="openPlanEditor('${plan.id}')">Edytuj</button>
+        <button class="btn-small btn-small-danger tap" onclick="deletePlan('${plan.id}')">Usuń</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('plans-list').innerHTML = html;
 }
 
-/* =========================================================
-   RENDER: PROFIL
-   ========================================================= */
-function renderProfile(){
-  document.getElementById('profile-total').textContent = db.history.length;
-  document.getElementById('profile-tonnage').textContent = Math.round(calcTotalTonnage(db.history)).toLocaleString('pl-PL');
-  document.getElementById('profile-hours').textContent = formatHours(calcTotalHours(db.history));
+function deletePlan(planId){
+  db.customPlans = db.customPlans.filter(p => p.id !== planId);
+  saveDB(db);
+  renderPlans();
+  showToast('Plan usunięty');
+}
+
+/* ========== RENDER STATS ============ */
+function renderStats(){
+  const totalWorkouts = db.history.length;
+  const totalTonnage = db.history.reduce((sum, rec) => sum + rec.tonnage, 0);
+  const totalDuration = db.history.reduce((sum, rec) => sum + rec.durationMin, 0);
+  const exercises = new Set();
+  db.history.forEach(rec => rec.exercises.forEach(ex => exercises.add(ex.name)));
+
+  const html = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;">
+      <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+        <p style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">Treningi</p>
+        <p style="font-size:28px; font-weight:900;">${totalWorkouts}</p>
+      </div>
+      <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+        <p style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">Tonnage</p>
+        <p style="font-size:28px; font-weight:900;">${totalTonnage.toFixed(0)} kg</p>
+      </div>
+      <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+        <p style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">Godzin</p>
+        <p style="font-size:28px; font-weight:900;">${(totalDuration/60).toFixed(1)}</p>
+      </div>
+      <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+        <p style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">Ćwiczenia</p>
+        <p style="font-size:28px; font-weight:900;">${exercises.size}</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('stats-container').innerHTML = html;
+}
+
+/* ========== RENDER HISTORY ============ */
+function renderHistory(){
+  const html = db.history.reverse().map(rec => `
+    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; margin-bottom:12px;">
+      <div class="flex items-center justify-between mb-2">
+        <p class="font-bold">${rec.plan}</p>
+        <span class="text-[12px]" style="color:var(--text-dim)">${formatDate(rec.date)}</span>
+      </div>
+      <div class="flex items-center gap-6 text-[13px]" style="color:var(--text-dim);">
+        <span>⏱ ${rec.durationMin} min</span>
+        <span>💪 ${rec.tonnage.toFixed(0)} kg</span>
+        <span>🏋️ ${rec.exercises.length} ćwiczeń</span>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('history-list').innerHTML = html || '<p style="color:var(--text-dim); text-align:center; padding:20px;">Brak historii treningów</p>';
+}
+
+/* ========== RENDER SETTINGS ============ */
+function renderSettings(){
+  const html = `
+    <button id="btn-reset" class="btn-secondary" style="margin-bottom:10px;">🗑 Wyczyść wszystkie dane</button>
+    <div style="background:var(--tile-2); border:1px solid var(--hairline); border-radius:12px; padding:12px; margin-top:16px;">
+      <p style="font-size:12px; color:var(--text-dim);">Wersja 2.0</p>
+      <p style="font-size:14px; font-weight:600; margin-top:4px;">FORGE Trening</p>
+    </div>
+  `;
+  document.getElementById('settings-container').innerHTML = html;
+  
+  document.getElementById('btn-reset').addEventListener('click', async ()=>{
+    const ok = await showConfirm('Na pewno chcesz usunąć wszystkie dane? Tej operacji nie można cofnąć.', { title:'Wyczyścić dane?', confirmText:'Usuń wszystko', danger:true });
+    if(ok){
+      localStorage.removeItem(STORAGE_KEY);
+      db = loadDB();
+      renderAll();
+      showToast('Dane wyczyszczone');
+    }
+  });
 }
 
 function renderAll(){
   renderHome();
+  renderPlans();
+  renderStats();
   renderHistory();
-  renderProgressFull();
-  renderProfile();
+  renderSettings();
 }
 
-/* =========================================================
-   NAWIGACJA MIĘDZY WIDOKAMI
-   ========================================================= */
-document.querySelectorAll('.nav-item').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.nav-item').forEach(b=>b.setAttribute('data-active','false'));
-    btn.setAttribute('data-active','true');
-    const view = btn.getAttribute('data-view');
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    document.getElementById('view-'+view).classList.add('active');
-  });
-});
-
-/* =========================================================
-   MODAL: PROWADZENIE TRENINGU
-   ========================================================= */
-let activeWorkout = null;
-let timerInterval = null;
-let workoutStart = null;
-
-function getLastWeight(exerciseName){
-  for(let i = db.history.length - 1; i >= 0; i--){
-    const ex = db.history[i].exercises.find(e => e.name === exerciseName);
-    if(ex){
-      const weights = ex.sets.map(s=>s.weight).filter(w=>w>0);
-      if(weights.length) return Math.max(...weights);
+/* ========== WORKOUT MODAL ============ */
+function openWorkoutModal(planId = null){
+  let plan;
+  if(!planId){
+    plan = getTodayPlan();
+    if(!plan){
+      showToast('Na dziś nie masz zaplanowanego treningu');
+      return;
     }
+  } else {
+    plan = db.customPlans.find(p => p.id === planId);
+    if(!plan) return;
   }
-  return BASE_WEIGHTS[exerciseName] || 20;
-}
 
-function openWorkoutModal(){
-  const planName = getTodayPlan();
-  const plan = PLANS[planName];
   activeWorkout = {
-    plan: planName,
+    plan: plan.name,
     exercises: plan.exercises.map(ex => ({
       name: ex.name,
       muscle: ex.muscle,
-      sets: [1,2,3].map(()=> ({ weight: getLastWeight(ex.name), reps: 10, done:false }))
+      sets: Array.from({length: ex.defaultSets}, () => ({ weight: getLastWeight(ex.name), reps: ex.defaultReps, done: false }))
     }))
   };
 
-  document.getElementById('modal-plan-label').textContent = 'TRENING ' + planName;
+  document.getElementById('modal-plan-label').textContent = 'TRENING ' + plan.name;
   renderModalExercises();
 
   workoutStart = Date.now();
@@ -693,6 +779,9 @@ function updateTimer(){
   const mm = String(Math.floor(elapsed/60)).padStart(2,'0');
   const ss = String(elapsed%60).padStart(2,'0');
   document.getElementById('modal-timer').textContent = `${mm}:${ss}`;
+  
+  const tonnage = activeWorkout.exercises.reduce((s,ex)=> s + ex.sets.reduce((s2,st)=> s2 + (st.done ? st.weight*st.reps : 0), 0), 0);
+  document.getElementById('modal-tonnage').textContent = `${tonnage.toFixed(0)} kg`;
 }
 
 function renderModalExercises(){
@@ -752,13 +841,6 @@ function closeModal(){
   activeWorkout = null;
 }
 
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=> t.classList.remove('show'), 2200);
-}
-
 async function finishWorkout(){
   const doneSetsCount = activeWorkout.exercises.reduce((s,ex)=> s + ex.sets.filter(st=>st.done).length, 0);
   if(doneSetsCount === 0){
@@ -783,31 +865,195 @@ async function finishWorkout(){
   showToast('Trening zapisany 💪');
 }
 
+/* ========== PLAN CREATOR ============ */
+function openPlanCreator(){
+  creatorState = { selectedDays: [], exercises: [], editingId: null };
+  document.getElementById('creator-plan-name').value = '';
+  document.getElementById('creator-plan-name').focus();
+  renderCreatorDays();
+  renderCreatorExercises();
+  document.getElementById('modal-plan-creator').classList.add('open');
+}
+
+function openPlanEditor(planId){
+  const plan = db.customPlans.find(p => p.id === planId);
+  if(!plan) return;
+  
+  creatorState = {
+    selectedDays: [...plan.daysOfWeek],
+    exercises: plan.exercises.map(ex => ({...ex})),
+    editingId: planId,
+    planName: plan.name
+  };
+  document.getElementById('creator-plan-name').value = plan.name;
+  document.getElementById('creator-plan-name').focus();
+  renderCreatorDays();
+  renderCreatorExercises();
+  document.getElementById('modal-plan-creator').classList.add('open');
+}
+
+function renderCreatorDays(){
+  const html = [0,1,2,3,4,5,6].map(d => `
+    <button class="day-btn tap ${creatorState.selectedDays.includes(d) ? 'active' : ''}" onclick="toggleCreatorDay(${d})">
+      ${DAYS_SHORT[d]}
+    </button>
+  `).join('');
+  document.getElementById('creator-day-selector').innerHTML = html;
+}
+
+function toggleCreatorDay(day){
+  if(creatorState.selectedDays.includes(day)){
+    creatorState.selectedDays = creatorState.selectedDays.filter(d => d !== day);
+  } else {
+    creatorState.selectedDays.push(day);
+  }
+  renderCreatorDays();
+}
+
+function renderCreatorExercises(){
+  const html = creatorState.exercises.map((ex, idx) => `
+    <div class="exercise-item">
+      <div class="flex-1">
+        <p class="exercise-name">${ex.name}</p>
+        <p class="exercise-sets-reps">${ex.defaultSets}x${ex.defaultReps} • ${ex.muscle}</p>
+      </div>
+      <div class="exercise-controls">
+        <button class="exercise-btn tap" onclick="decreaseCreatorSets(${idx})">−</button>
+        <button class="exercise-btn tap" onclick="decreaseCreatorReps(${idx})">▼</button>
+        <button class="exercise-btn tap" onclick="increaseCreatorReps(${idx})">▲</button>
+        <button class="exercise-btn tap" onclick="increaseCreatorSets(${idx})">+</button>
+        <button class="exercise-btn tap" onclick="removeCreatorExercise(${idx})" style="background:#ff3b30">✕</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('creator-exercise-list').innerHTML = html;
+}
+
+function increaseCreatorSets(idx){ creatorState.exercises[idx].defaultSets++; renderCreatorExercises(); }
+function decreaseCreatorSets(idx){ if(creatorState.exercises[idx].defaultSets > 1) creatorState.exercises[idx].defaultSets--; renderCreatorExercises(); }
+function increaseCreatorReps(idx){ creatorState.exercises[idx].defaultReps++; renderCreatorExercises(); }
+function decreaseCreatorReps(idx){ if(creatorState.exercises[idx].defaultReps > 1) creatorState.exercises[idx].defaultReps--; renderCreatorExercises(); }
+function removeCreatorExercise(idx){ creatorState.exercises.splice(idx, 1); renderCreatorExercises(); }
+
+function openLibrary(){
+  libraryFilterState = 'Wszystkie';
+  renderLibrary();
+  document.getElementById('modal-exercise-library').classList.add('open');
+}
+
+function renderLibrary(){
+  const filters = ['Wszystkie', ...Object.keys(EXERCISE_LIBRARY)];
+  const filterHtml = filters.map(f => `
+    <button class="filter-tag tap ${libraryFilterState === f ? 'active' : ''}" onclick="setLibraryFilter('${f}')">
+      ${f}
+    </button>
+  `).join('');
+  document.getElementById('library-muscle-filter').innerHTML = filterHtml;
+
+  let exercises = [];
+  if(libraryFilterState === 'Wszystkie'){
+    Object.values(EXERCISE_LIBRARY).forEach(arr => exercises.push(...arr));
+  } else {
+    exercises = EXERCISE_LIBRARY[libraryFilterState] || [];
+  }
+
+  const gridHtml = exercises.map((ex, idx) => `
+    <div class="exercise-lib-item tap" onclick="addCreatorExercise('${ex.name.replace(/'/g, "\\'")}', '${ex.muscle}')">
+      <p class="exercise-lib-name">${ex.name}</p>
+      <p class="exercise-lib-muscle">${ex.muscle}</p>
+    </div>
+  `).join('');
+  document.getElementById('library-exercise-grid').innerHTML = gridHtml;
+}
+
+function setLibraryFilter(filter){
+  libraryFilterState = filter;
+  renderLibrary();
+}
+
+function addCreatorExercise(name, muscle){
+  const exists = creatorState.exercises.find(ex => ex.name === name);
+  if(exists){
+    showToast('To ćwiczenie już dodane');
+    return;
+  }
+  creatorState.exercises.push({ name, muscle, defaultSets: 3, defaultReps: 10 });
+  renderCreatorExercises();
+  document.getElementById('modal-exercise-library').classList.remove('open');
+  showToast('Ćwiczenie dodane');
+}
+
+function savePlan(){
+  const name = document.getElementById('creator-plan-name').value.trim();
+  if(!name){ showToast('Wpisz nazwę planu'); return; }
+  if(creatorState.selectedDays.length === 0){ showToast('Wybierz przynajmniej jeden dzień'); return; }
+  if(creatorState.exercises.length === 0){ showToast('Dodaj przynajmniej jedno ćwiczenie'); return; }
+
+  if(creatorState.editingId){
+    const plan = db.customPlans.find(p => p.id === creatorState.editingId);
+    if(plan){
+      plan.name = name;
+      plan.daysOfWeek = creatorState.selectedDays;
+      plan.exercises = creatorState.exercises;
+    }
+  } else {
+    db.customPlans.push({
+      id: Date.now().toString(),
+      name,
+      daysOfWeek: creatorState.selectedDays,
+      exercises: creatorState.exercises
+    });
+  }
+  
+  saveDB(db);
+  document.getElementById('modal-plan-creator').classList.remove('open');
+  renderAll();
+  showToast('Plan zapisany 💪');
+}
+
+/* ========== EVENT LISTENERS ============ */
 document.getElementById('btn-start').addEventListener('click', openWorkoutModal);
 document.getElementById('btn-close-modal').addEventListener('click', async ()=>{
   const ok = await showConfirm('Zamknąć trening bez zapisywania? Wprowadzone serie i ciężary zostaną utracone.', { title:'Zamknąć trening?', confirmText:'Zamknij bez zapisu', danger:true });
   if(ok) closeModal();
 });
 document.getElementById('btn-finish').addEventListener('click', finishWorkout);
+document.getElementById('btn-create-plan').addEventListener('click', openPlanCreator);
+document.getElementById('btn-add-exercise').addEventListener('click', openLibrary);
+document.getElementById('btn-close-creator').addEventListener('click', ()=>{
+  document.getElementById('modal-plan-creator').classList.remove('open');
+});
+document.getElementById('btn-close-library').addEventListener('click', ()=>{
+  document.getElementById('modal-exercise-library').classList.remove('open');
+});
+document.getElementById('btn-save-plan').addEventListener('click', savePlan);
 
-document.getElementById('btn-reset').addEventListener('click', async ()=>{
-  const ok = await showConfirm('Na pewno chcesz usunąć wszystkie zapisane treningi? Tej operacji nie można cofnąć.', { title:'Wyczyścić dane?', confirmText:'Usuń wszystko', danger:true });
-  if(ok){
-    localStorage.removeItem(STORAGE_KEY);
-    db = loadDB();
-    renderAll();
-    showToast('Dane wyczyszczone');
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => switchView(item.dataset.view));
+});
+
+document.getElementById('dialog-confirm-btn').addEventListener('click', ()=>{
+  const name = document.getElementById('dialog-name-input').value.trim();
+  if(name){
+    applyProfileName(name);
+    document.getElementById('modal-name-dialog').classList.remove('open');
   }
 });
 
-/* =========================================================
-   START
-   ========================================================= */
+document.getElementById('dialog-cancel-btn').addEventListener('click', ()=>{
+  document.getElementById('modal-name-dialog').classList.remove('open');
+});
+
+document.getElementById('dialog-name-input').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') document.getElementById('dialog-confirm-btn').click();
+});
+
+/* ========== INIT ============ */
 renderAll();
 
 if(profile && profile.name){
   applyProfileName(profile.name);
-}else{
+} else {
   applyProfileName('Sportowcu');
   showNameModal();
 }
