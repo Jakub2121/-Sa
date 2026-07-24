@@ -165,6 +165,10 @@
   .plan-name-input{ width:100%; height:48px; background:var(--tile-2); border:1px solid var(--hairline); border-radius:12px; color:#fff; font-size:15px; font-weight:600; padding:0 12px; margin-bottom:20px; outline:none; }
   .plan-name-input:focus{ border-color:var(--accent); }
   .section-label{ font-size:13px; color:var(--text-dim); font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em; }
+  .input-group-label{ font-size:11px; color:var(--text-dim); font-weight:600; margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; }
+  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:10px; }
+  .input-field-wrapper input{ width:100%; background:transparent; text-align:center; border:none; outline:none; }
+  .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; margin-top:2px; }
 </style>
 </head>
 <body>
@@ -191,20 +195,29 @@
   <!-- ============ HOME VIEW ============ -->
   <main id="view-home" class="view px-5 pb-32">
     <div class="mb-6">
-      <div class="hero-glow rounded-3xl p-6" style="background:var(--tile); border:1px solid var(--hairline)">
-        <p class="text-[14px]" style="color:var(--text-dim); margin-bottom:6px;">DZISIEJSZY TRENING</p>
-        <h2 id="today-workout-name" class="text-[32px] font-black leading-tight mb-2">—</h2>
-        <div class="flex items-center gap-4 mb-4">
-          <div class="flex items-center gap-2">
-            <span class="text-[14px]" style="color:var(--text-dim)">⏱</span>
-            <span id="today-workout-duration" class="text-[14px]" style="color:var(--text-dim)">—</span>
+      <div class="rounded-3xl p-6 transition-all" style="background:var(--accent); border:none;">
+        <p class="text-[13px] font-semibold" style="color:rgba(13,13,13,0.65); margin-bottom:8px; text-transform:uppercase; letter-spacing:.05em;">Dzisiejszy Trening</p>
+        <div class="flex items-center gap-3 mb-6">
+          <h2 id="today-workout-name" class="text-[36px] font-black leading-tight" style="color:#0D0D0D">—</h2>
+          <span style="font-size:32px">🏋️</span>
+        </div>
+        
+        <div class="flex items-center gap-6 mb-6">
+          <div>
+            <p class="text-[12px] font-semibold" style="color:rgba(13,13,13,0.6); margin-bottom:4px;">Ćwiczenia</p>
+            <p id="today-workout-exercises" class="text-[22px] font-black" style="color:#0D0D0D">—</p>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-[14px]" style="color:var(--text-dim)">💪</span>
-            <span id="today-workout-exercises" class="text-[14px]" style="color:var(--text-dim)">—</span>
+          <div style="width:1px; height:40px; background:rgba(13,13,13,0.15)"></div>
+          <div>
+            <p class="text-[12px] font-semibold" style="color:rgba(13,13,13,0.6); margin-bottom:4px;">Czas</p>
+            <p id="today-workout-duration" class="text-[22px] font-black" style="color:#0D0D0D">—</p>
           </div>
         </div>
-        <button id="btn-start" class="tap w-full py-3 rounded-2xl font-bold text-[16px]" style="background:var(--accent); color:#0D0D0D">START TRENING</button>
+
+        <button id="btn-start" class="tap w-full py-3 px-4 rounded-2xl font-extrabold text-[15px] transition-all flex items-center justify-center gap-2" style="background:#0D0D0D; color:var(--accent)">
+          <span id="btn-start-text">START TRENING</span>
+          <span style="font-size:18px">→</span>
+        </button>
       </div>
     </div>
 
@@ -604,20 +617,18 @@ function getTodayPlan(){
 /* ========== RENDER HOME ========== */
 function renderHome(){
   const todayPlan = getTodayPlan();
-  const card = document.querySelector('[style*="hero-glow"]');
+  const btnStartText = document.getElementById('btn-start-text');
   
   if(todayPlan){
     document.getElementById('today-workout-name').textContent = todayPlan.name;
     document.getElementById('today-workout-duration').textContent = `~${todayPlan.exercises.length * 10} min`;
     document.getElementById('today-workout-exercises').textContent = `${todayPlan.exercises.length} ćwiczeń`;
-    document.getElementById('btn-start').textContent = 'START TRENING';
-    document.getElementById('btn-start').style.opacity = '1';
+    btnStartText.textContent = 'START TRENING';
   } else {
     document.getElementById('today-workout-name').textContent = 'Dzień Regeneracji';
     document.getElementById('today-workout-duration').textContent = 'Odpoczywaj';
     document.getElementById('today-workout-exercises').textContent = 'Zaplanuj trening';
-    document.getElementById('btn-start').textContent = 'PRZEGLĄDAJ PLANY';
-    document.getElementById('btn-start').onclick = () => switchView('plans');
+    btnStartText.textContent = 'PRZEGLĄDAJ PLANY';
   }
 
   const recentHtml = db.history.slice(-3).reverse().map(rec => `
@@ -788,24 +799,33 @@ function renderModalExercises(){
   const el = document.getElementById('modal-exercise-list');
   el.innerHTML = activeWorkout.exercises.map((ex, exIdx)=>{
     const setsHTML = ex.sets.map((st, stIdx)=> `
-      <div class="set-row ${st.done?'done':''} flex items-center gap-3 rounded-2xl px-3 py-2.5" style="background:var(--tile); border:1px solid var(--hairline)" data-ex="${exIdx}" data-set="${stIdx}">
-        <span class="text-[13px] w-5 font-semibold" style="color:var(--text-dim)">${stIdx+1}</span>
-        <div class="flex items-center gap-1 flex-1">
-          <input type="number" inputmode="decimal" class="input-weight w-full bg-transparent text-[15px] font-bold text-center rounded-xl py-2" style="background:var(--tile-2)" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
-          <span class="text-[11px] shrink-0 pr-1" style="color:var(--text-dim)">kg</span>
+      <div class="set-row ${st.done?'done':''} flex items-center gap-3 rounded-2xl px-4 py-3" style="background:var(--tile); border:1px solid var(--hairline)" data-ex="${exIdx}" data-set="${stIdx}">
+        <span class="text-[13px] w-5 font-semibold text-center" style="color:var(--text-dim)">${stIdx+1}</span>
+        
+        <div class="flex-1 flex flex-col gap-1">
+          <span class="input-group-label">Waga</span>
+          <div class="input-field-wrapper">
+            <input type="number" inputmode="decimal" class="input-weight text-[16px] font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
+            <div class="input-field-label-small">kg</div>
+          </div>
         </div>
-        <div class="flex items-center gap-1 flex-1">
-          <input type="number" inputmode="numeric" class="input-reps w-full bg-transparent text-[15px] font-bold text-center rounded-xl py-2" style="background:var(--tile-2)" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
-          <span class="text-[11px] shrink-0 pr-1" style="color:var(--text-dim)">pow.</span>
+
+        <div class="flex-1 flex flex-col gap-1">
+          <span class="input-group-label">Powtórzenia</span>
+          <div class="input-field-wrapper">
+            <input type="number" inputmode="numeric" class="input-reps text-[16px] font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
+            <div class="input-field-label-small">pow.</div>
+          </div>
         </div>
+
         <button class="checkbtn tap check-toggle" data-ex="${exIdx}" data-set="${stIdx}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${st.done?'#0D0D0D':'transparent'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </button>
       </div>
     `).join('');
     return `
-      <div>
-        <div class="flex items-center justify-between mb-2 px-1">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-3 px-1">
           <p class="text-[15px] font-bold">${ex.name}</p>
           <span class="text-[11px] px-2.5 py-1 rounded-full font-semibold" style="background:var(--tile-2); color:var(--text-dim)">${ex.muscle}</span>
         </div>
@@ -912,17 +932,29 @@ function toggleCreatorDay(day){
 
 function renderCreatorExercises(){
   const html = creatorState.exercises.map((ex, idx) => `
-    <div class="exercise-item">
-      <div class="flex-1">
+    <div class="exercise-item" style="flex-direction:column; align-items:flex-start;">
+      <div style="width:100%; margin-bottom:12px;">
         <p class="exercise-name">${ex.name}</p>
-        <p class="exercise-sets-reps">${ex.defaultSets}x${ex.defaultReps} • ${ex.muscle}</p>
+        <p class="exercise-sets-reps" style="margin-top:4px;">${ex.muscle}</p>
       </div>
-      <div class="exercise-controls">
-        <button class="exercise-btn tap" onclick="decreaseCreatorSets(${idx})">−</button>
-        <button class="exercise-btn tap" onclick="decreaseCreatorReps(${idx})">▼</button>
-        <button class="exercise-btn tap" onclick="increaseCreatorReps(${idx})">▲</button>
-        <button class="exercise-btn tap" onclick="increaseCreatorSets(${idx})">+</button>
-        <button class="exercise-btn tap" onclick="removeCreatorExercise(${idx})" style="background:#ff3b30">✕</button>
+      <div style="width:100%; display:flex; gap:12px; align-items:flex-end;">
+        <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+          <span class="input-group-label">Serie</span>
+          <div style="display:flex; gap:4px; align-items:center;">
+            <button class="exercise-btn tap" onclick="decreaseCreatorSets(${idx})" style="flex:1">−</button>
+            <span style="flex:1; text-align:center; font-weight:700; font-size:16px; color:var(--accent)">${ex.defaultSets}</span>
+            <button class="exercise-btn tap" onclick="increaseCreatorSets(${idx})" style="flex:1">+</button>
+          </div>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+          <span class="input-group-label">Powtórzenia</span>
+          <div style="display:flex; gap:4px; align-items:center;">
+            <button class="exercise-btn tap" onclick="decreaseCreatorReps(${idx})" style="flex:1">−</button>
+            <span style="flex:1; text-align:center; font-weight:700; font-size:16px; color:var(--accent)">${ex.defaultReps}</span>
+            <button class="exercise-btn tap" onclick="increaseCreatorReps(${idx})" style="flex:1">+</button>
+          </div>
+        </div>
+        <button class="exercise-btn tap" onclick="removeCreatorExercise(${idx})" style="background:#ff3b30; height:44px">✕</button>
       </div>
     </div>
   `).join('');
@@ -1012,7 +1044,14 @@ function savePlan(){
 }
 
 /* ========== EVENT LISTENERS ============ */
-document.getElementById('btn-start').addEventListener('click', openWorkoutModal);
+document.getElementById('btn-start').addEventListener('click', function(){
+  const todayPlan = getTodayPlan();
+  if(todayPlan){
+    openWorkoutModal();
+  } else {
+    switchView('plans');
+  }
+});
 document.getElementById('btn-close-modal').addEventListener('click', async ()=>{
   const ok = await showConfirm('Zamknąć trening bez zapisywania? Wprowadzone serie i ciężary zostaną utracone.', { title:'Zamknąć trening?', confirmText:'Zamknij bez zapisu', danger:true });
   if(ok) closeModal();
