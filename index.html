@@ -221,6 +221,14 @@
       </div>
     </div>
 
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-4 px-1">
+        <p class="text-[18px] font-bold">Moja Aktywność</p>
+        <a href="#" onclick="switchView('stats'); return false;" class="text-[13px] font-semibold" style="color:var(--accent)">Szczegóły</a>
+      </div>
+      <div class="grid grid-cols-3 gap-3" id="home-activity-stats"></div>
+    </div>
+
     <div>
       <div class="flex items-center justify-between mb-4 px-1">
         <p class="text-[18px] font-bold">Ostatnie treningi</p>
@@ -622,14 +630,43 @@ function renderHome(){
   if(todayPlan){
     document.getElementById('today-workout-name').textContent = todayPlan.name;
     document.getElementById('today-workout-duration').textContent = `~${todayPlan.exercises.length * 10} min`;
-    document.getElementById('today-workout-exercises').textContent = `${todayPlan.exercises.length} ćwiczeń`;
+    document.getElementById('today-workout-exercises').textContent = `${todayPlan.exercises.length}`;
     btnStartText.textContent = 'START TRENING';
   } else {
-    document.getElementById('today-workout-name').textContent = 'Dzień Regeneracji';
-    document.getElementById('today-workout-duration').textContent = 'Odpoczywaj';
-    document.getElementById('today-workout-exercises').textContent = 'Zaplanuj trening';
+    document.getElementById('today-workout-name').textContent = 'Regeneracja';
+    document.getElementById('today-workout-duration').textContent = 'Odpoczynek';
+    document.getElementById('today-workout-exercises').textContent = '—';
     btnStartText.textContent = 'PRZEGLĄDAJ PLANY';
   }
+
+  // Obliczenia dla tego tygodnia
+  const now = new Date();
+  const weekStart = new Date(now);
+  weekStart.setDate(now.getDate() - now.getDay());
+  weekStart.setHours(0, 0, 0, 0);
+
+  const weekWorkouts = db.history.filter(rec => new Date(rec.date) >= weekStart);
+  const weekTonnage = weekWorkouts.reduce((sum, rec) => sum + rec.tonnage, 0);
+  const weekDuration = weekWorkouts.reduce((sum, rec) => sum + rec.durationMin, 0);
+
+  const statsHtml = `
+    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+      <p style="font-size:12px; color:var(--text-dim); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;">Treningi</p>
+      <p style="font-size:24px; font-weight:900; color:var(--accent);">${weekWorkouts.length}</p>
+      <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">W tym tygodniu</p>
+    </div>
+    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+      <p style="font-size:12px; color:var(--text-dim); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;">Tonnage</p>
+      <p style="font-size:24px; font-weight:900; color:var(--accent);">${weekTonnage.toFixed(0)} kg</p>
+      <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">W tym tygodniu</p>
+    </div>
+    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+      <p style="font-size:12px; color:var(--text-dim); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;">Czas</p>
+      <p style="font-size:24px; font-weight:900; color:var(--accent);">${Math.floor(weekDuration/60)}h ${weekDuration%60}m</p>
+      <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">W tym tygodniu</p>
+    </div>
+  `;
+  document.getElementById('home-activity-stats').innerHTML = statsHtml;
 
   const recentHtml = db.history.slice(-3).reverse().map(rec => `
     <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:12px; margin-bottom:10px;">
