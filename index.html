@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#0D0D0D">
 <meta name="color-scheme" content="dark">
 
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -225,7 +226,6 @@
   .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; }
   .input-field-inline-label{ font-size:8.5px; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; }
 </style>
-  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -1221,6 +1221,19 @@ if(profile && profile.name){
   applyProfileName('Sportowcu');
   showNameModal();
 }
+
+/* Ekran powitalny — niezależne od CSS zabezpieczenie usuwające splash,
+   żeby reszta aplikacji ZAWSZE była widoczna niezależnie od animacji.
+   Po zniknięciu splasha zawsze wymuszamy włączenie zakładki Home. */
+(function(){
+  const splash = document.getElementById('splash-screen');
+  if(!splash) return;
+  setTimeout(()=>{
+    splash.classList.add('gone');
+    switchView('home');
+  }, 1500);
+})();
+
 </script>
 <script>
   if ('serviceWorker' in navigator) {
