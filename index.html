@@ -107,6 +107,7 @@
   input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
   input[type=number]{ -moz-appearance:textfield; }
   .set-row.done{ background:rgba(208,253,56,0.08); border-color:rgba(208,253,56,0.35); }
+  .set-row{ display:grid; grid-template-columns:18px 1fr 1fr 30px; align-items:center; gap:10px; }
   .checkbtn{ width:26px;height:26px;border-radius:9px;border:2px solid #3A3A3C;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
   .set-row.done .checkbtn{ background:var(--accent); border-color:var(--accent); }
   #modal-overlay{ position:fixed; inset:0; background:var(--bg); z-index:60; display:none; flex-direction:column; }
@@ -165,10 +166,10 @@
   .plan-name-input{ width:100%; height:48px; background:var(--tile-2); border:1px solid var(--hairline); border-radius:12px; color:#fff; font-size:15px; font-weight:600; padding:0 12px; margin-bottom:20px; outline:none; }
   .plan-name-input:focus{ border-color:var(--accent); }
   .section-label{ font-size:13px; color:var(--text-dim); font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em; }
-  .input-group-label{ font-size:11px; color:var(--text-dim); font-weight:600; margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; }
-  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:10px; }
-  .input-field-wrapper input{ width:100%; background:transparent; text-align:center; border:none; outline:none; }
-  .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; margin-top:2px; }
+  .input-group-label{ font-size:11px; color:var(--text-dim); font-weight:600; margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; text-align:center; }
+  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:8px 4px; min-width:0; display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .input-field-wrapper input{ width:100%; min-width:0; background:transparent; text-align:center; border:none; outline:none; }
+  .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; margin-top:2px; text-align:center; }
 </style>
 </head>
 <body>
@@ -214,7 +215,7 @@
           </div>
         </div>
 
-        <button id="btn-start" class="tap w-full py-3 px-4 rounded-2xl font-extrabold text-[15px] transition-all flex items-center justify-center gap-2" style="background:#0D0D0D; color:var(--accent)">
+        <button id="btn-start" class="tap w-full py-4 px-4 rounded-2xl font-extrabold text-[15px] transition-all flex items-center justify-center gap-2" style="background:#0D0D0D; color:var(--accent)">
           <span id="btn-start-text">START TRENING</span>
           <span style="font-size:18px">→</span>
         </button>
@@ -243,7 +244,7 @@
     <div class="flex items-center justify-between mb-6 px-1">
       <p class="text-[22px] font-extrabold">Moje Plany</p>
     </div>
-    <button id="btn-create-plan" class="tap w-full py-3 rounded-2xl font-bold text-[16px] mb-6" style="background:var(--accent); color:#0D0D0D">+ STWÓRZ NOWY PLAN</button>
+    <button id="btn-create-plan" class="tap w-full py-4 rounded-2xl font-bold text-[16px] mb-6" style="background:var(--accent); color:#0D0D0D">+ STWÓRZ NOWY PLAN</button>
     <div id="plans-list"></div>
   </main>
 
@@ -319,15 +320,14 @@
       </button>
     </header>
 
-    <div class="flex items-center justify-center gap-4 px-6 py-3" style="border-bottom:1px solid var(--hairline)">
-      <div class="flex items-center gap-2">
-        <span style="font-size:14px; color:var(--text-dim)">⏱</span>
-        <span id="modal-timer" class="text-[18px] font-bold">00:00</span>
+    <div class="grid grid-cols-2 gap-3 px-6 py-4" style="border-bottom:1px solid var(--hairline)">
+      <div class="flex flex-col items-center justify-center py-3 rounded-2xl" style="background:var(--tile)">
+        <span class="text-[11px] font-semibold" style="color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">⏱ Czas</span>
+        <span id="modal-timer" class="text-[20px] font-black">00:00</span>
       </div>
-      <div class="flex-1" style="height:1px; background:var(--hairline)"></div>
-      <div class="flex items-center gap-2">
-        <span style="font-size:14px; color:var(--text-dim)">💪</span>
-        <span id="modal-tonnage" class="text-[18px] font-bold">0 kg</span>
+      <div class="flex flex-col items-center justify-center py-3 rounded-2xl" style="background:var(--tile)">
+        <span class="text-[11px] font-semibold" style="color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">💪 Tonnage</span>
+        <span id="modal-tonnage" class="text-[20px] font-black">0 kg</span>
       </div>
     </div>
 
@@ -336,7 +336,7 @@
     </div>
 
     <div class="flex gap-3 px-6 py-4" style="border-top:1px solid var(--hairline)">
-      <button id="btn-finish" class="tap flex-1 py-3 rounded-2xl font-bold text-[15px]" style="background:var(--accent); color:#0D0D0D">ZAPISZ TRENING</button>
+      <button id="btn-finish" class="tap flex-1 py-4 rounded-2xl font-bold text-[15px]" style="background:var(--accent); color:#0D0D0D">ZAPISZ TRENING</button>
     </div>
   </div>
 
@@ -836,26 +836,22 @@ function renderModalExercises(){
   const el = document.getElementById('modal-exercise-list');
   el.innerHTML = activeWorkout.exercises.map((ex, exIdx)=>{
     const setsHTML = ex.sets.map((st, stIdx)=> `
-      <div class="set-row ${st.done?'done':''} flex items-center gap-3 rounded-2xl px-4 py-3" style="background:var(--tile); border:1px solid var(--hairline)" data-ex="${exIdx}" data-set="${stIdx}">
-        <span class="text-[13px] w-5 font-semibold text-center" style="color:var(--text-dim)">${stIdx+1}</span>
-        
-        <div class="flex-1 flex flex-col gap-1">
+      <div class="set-row ${st.done?'done':''} rounded-2xl px-3 py-3" style="background:var(--tile); border:1px solid var(--hairline)" data-ex="${exIdx}" data-set="${stIdx}">
+        <span class="text-[13px] font-semibold text-center" style="color:var(--text-dim)">${stIdx+1}</span>
+
+        <div class="input-field-wrapper">
           <span class="input-group-label">Waga</span>
-          <div class="input-field-wrapper">
-            <input type="number" inputmode="decimal" class="input-weight text-[16px] font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
-            <div class="input-field-label-small">kg</div>
-          </div>
+          <input type="number" inputmode="decimal" class="input-weight text-[16px] font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
+          <div class="input-field-label-small">kg</div>
         </div>
 
-        <div class="flex-1 flex flex-col gap-1">
-          <span class="input-group-label">Powtórzenia</span>
-          <div class="input-field-wrapper">
-            <input type="number" inputmode="numeric" class="input-reps text-[16px] font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
-            <div class="input-field-label-small">pow.</div>
-          </div>
+        <div class="input-field-wrapper">
+          <span class="input-group-label">Powt.</span>
+          <input type="number" inputmode="numeric" class="input-reps text-[16px] font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
+          <div class="input-field-label-small">pow.</div>
         </div>
 
-        <button class="checkbtn tap check-toggle" data-ex="${exIdx}" data-set="${stIdx}">
+        <button class="checkbtn tap check-toggle" data-ex="${exIdx}" data-set="${stIdx}" style="margin:0 auto;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${st.done?'#0D0D0D':'transparent'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </button>
       </div>
