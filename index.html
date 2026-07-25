@@ -795,11 +795,20 @@ function renderPlans(){
   document.getElementById('plans-list').innerHTML = html;
 }
 
-function deletePlan(planId){
+async function deletePlan(planId){
+  const plan = db.customPlans.find(p => p.id === planId);
+  if(!plan) return;
+
+  const ok = await showConfirm(
+    `Czy na pewno chcesz usunąć plan ${plan.name}? Tej operacji nie można cofnąć.`,
+    { title: 'Usunąć plan?', confirmText: 'Usuń' }
+  );
+  if(!ok) return;
+
   db.customPlans = db.customPlans.filter(p => p.id !== planId);
   saveDB(db);
   renderPlans();
-  showToast('Plan usunięty');
+  showToast('Plan został usunięty');
 }
 
 /* ========== RENDER STATS ============ */
@@ -1233,45 +1242,6 @@ if(profile && profile.name){
   }, 1500);
 })();
 
-
- // ==========================================
-  // 1. OBSŁUGA SPLASH SCREENA I WIDOKU HOME
-  // ==========================================
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      // Wymuszenie przejścia do widoku HOME
-      if (typeof switchView === 'function') {
-        switchView('home');
-      }
-      
-      // Ukrycie ekranu powitalnego
-      const splash = document.getElementById('splash-screen');
-      if (splash) {
-        splash.classList.add('gone');
-      }
-    }, 1500); // 1.5 sekundy animacji
-  });
-
-  // ==========================================
-  // 2. REJESTRACJA SERVICE WORKERA I AUTO-REFRESH
-  // ==========================================
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').then((registration) => {
-        // Wymuś sprawdzenie czy na serwerze jest nowsza wersja sw.js
-        registration.update();
-      });
-
-      // Jeśli nowy Service Worker przejmie kontrolę, odśwież stronę
-      let refreshing = false;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-          refreshing = true;
-          window.location.reload();
-        }
-      });
-    });
-  } 
 </script>
 
 </body>
