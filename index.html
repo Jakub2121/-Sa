@@ -85,7 +85,7 @@
   body{ font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; color:#fff; min-height:100dvh; }
   .safe-top{ padding-top:max(env(safe-area-inset-top),20px); }
   .safe-bottom{ padding-bottom:max(env(safe-area-inset-bottom),14px); }
-  .app-shell{ max-width:428px; margin:0 auto; min-height:100dvh; position:relative; background:var(--bg); overflow-x:hidden; animation:appBoot .6s cubic-bezier(.16,1,.3,1) both; }
+  .app-shell{ max-width:428px; margin:0 auto; min-height:100dvh; position:relative; background:var(--bg); overflow-x:hidden; }
   @keyframes appBoot{ from{opacity:0; transform:scale(0.97) translateY(6px);} to{opacity:1; transform:scale(1) translateY(0);} }
   @media (min-width:429px){
     body{ background:radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 60%); }
@@ -125,6 +125,31 @@
   .nav-pill{ transition:background-color .25s cubic-bezier(.4,0,.2,1); }
   .nav-icon, .nav-label{ transition:color .25s cubic-bezier(.4,0,.2,1); }
   .nav-item[data-active="true"] .nav-icon{ animation:scaleFade .3s cubic-bezier(.34,1.56,.64,1) both; }
+
+  /* ===== SPLASH SCREEN (ekran powitalny przy uruchomieniu) ===== */
+  #splash-screen{
+    position:fixed; inset:0; z-index:999;
+    background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    animation:splashBgOut .5s ease .95s forwards;
+  }
+  #splash-screen.gone{ display:none; }
+  .splash-text{
+    font-size:34px; font-weight:900; letter-spacing:-.02em;
+    color:var(--accent);
+    text-shadow:0 0 18px rgba(208,253,56,0.55), 0 0 42px rgba(208,253,56,0.3);
+    animation:splashPulse 1.3s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes splashPulse{
+    0%{ opacity:0; transform:scale(0.88); }
+    35%{ opacity:1; transform:scale(1.04); }
+    55%{ opacity:1; transform:scale(1); }
+    100%{ opacity:1; transform:scale(1); }
+  }
+  @keyframes splashBgOut{
+    from{ opacity:1; visibility:visible; }
+    to{ opacity:0; visibility:hidden; }
+  }
   .nav-item[data-active="true"] .nav-pill{ background:rgba(208,253,56,0.12); }
   .nav-item[data-active="true"] .nav-icon{ color:var(--accent); }
   .nav-item[data-active="true"] .nav-label{ color:var(--accent); }
@@ -203,10 +228,14 @@
 </head>
 <body>
 
+<div id="splash-screen">
+  <span class="splash-text">Trenujmy</span>
+</div>
+
 <div class="app-shell safe-top">
 
   <!-- ============ HEADER ============ -->
-  <header class="flex items-start justify-between px-6 pt-2 pb-5 anim-in d-1">
+  <header class="flex items-start justify-between px-6 pt-2 pb-5">
     <div>
       <h1 class="text-[26px] font-extrabold leading-tight tracking-tight"><span id="greeting-name">Witaj</span> <span>👋</span></h1>
       <p class="text-[14px] mt-1" style="color:var(--text-dim)">Dzisiaj możesz zrobić więcej niż wczoraj.</p>
@@ -225,8 +254,8 @@
   </header>
 
   <!-- ============ HOME VIEW ============ -->
-  <main id="view-home" class="view route-view px-5 pb-32">
-    <div class="mb-6 anim-in-scale d-2">
+  <main id="view-home" class="view px-5 pb-32">
+    <div class="mb-6">
       <div class="rounded-3xl p-6 transition-all" style="background:var(--accent); border:none;">
         <p class="text-[13px] font-semibold" style="color:rgba(13,13,13,0.65); margin-bottom:8px; text-transform:uppercase; letter-spacing:.05em;">Dzisiejszy Trening</p>
         <div class="flex items-center gap-3 mb-6">
@@ -253,7 +282,7 @@
       </div>
     </div>
 
-    <div class="mb-6 anim-in d-3">
+    <div class="mb-6">
       <div class="flex items-center justify-between mb-4 px-1">
         <p class="text-[18px] font-bold">Moja Aktywność</p>
         <a href="#" onclick="switchView('stats'); return false;" class="text-[13px] font-semibold" style="color:var(--accent)">Szczegóły</a>
@@ -261,7 +290,7 @@
       <div class="grid grid-cols-3 gap-3" id="home-activity-stats"></div>
     </div>
 
-    <div class="anim-in d-4">
+    <div>
       <div class="flex items-center justify-between mb-4 px-1">
         <p class="text-[18px] font-bold">Ostatnie treningi</p>
         <a href="#" onclick="switchView('history'); return false;" class="text-[14px]" style="color:var(--accent)">Wszystkie</a>
@@ -271,7 +300,7 @@
   </main>
 
   <!-- ============ PLANS VIEW ============ -->
-  <main id="view-plans" class="view route-view px-5 pb-32">
+  <main id="view-plans" class="view px-5 pb-32">
     <div class="flex items-center justify-between mb-6 px-1">
       <p class="text-[22px] font-extrabold">Moje Plany</p>
     </div>
@@ -280,7 +309,7 @@
   </main>
 
   <!-- ============ STATS VIEW ============ -->
-  <main id="view-stats" class="view route-view px-5 pb-32">
+  <main id="view-stats" class="view px-5 pb-32">
     <div class="text-center py-12">
       <p class="text-[14px] mb-2" style="color:var(--text-dim)">Statystyki</p>
       <h2 class="text-[24px] font-extrabold mb-6">Twoje Osiągnięcia</h2>
@@ -289,7 +318,7 @@
   </main>
 
   <!-- ============ HISTORY VIEW ============ -->
-  <main id="view-history" class="view route-view px-5 pb-32">
+  <main id="view-history" class="view px-5 pb-32">
     <div>
       <h2 class="text-[26px] font-extrabold mb-6 px-1">Historia Treningów</h2>
       <div id="history-list"></div>
@@ -297,7 +326,7 @@
   </main>
 
   <!-- ============ SETTINGS VIEW ============ -->
-  <main id="view-settings" class="view route-view px-5 pb-32">
+  <main id="view-settings" class="view px-5 pb-32">
     <div>
       <h2 class="text-[26px] font-extrabold mb-6 px-1">Ustawienia</h2>
       <div id="settings-container"></div>
