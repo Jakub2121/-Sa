@@ -107,7 +107,7 @@
   input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
   input[type=number]{ -moz-appearance:textfield; }
   .set-row.done{ background:rgba(208,253,56,0.08); border-color:rgba(208,253,56,0.35); }
-  .set-row{ display:grid; grid-template-columns:18px 1fr 1fr 30px; align-items:center; gap:10px; }
+  .set-row{ display:grid; grid-template-columns:18px 1fr 1fr 30px; align-items:center; gap:12px; }
   .checkbtn{ width:26px;height:26px;border-radius:9px;border:2px solid #3A3A3C;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
   .set-row.done .checkbtn{ background:var(--accent); border-color:var(--accent); }
   #modal-overlay{ position:fixed; inset:0; background:var(--bg); z-index:60; display:none; flex-direction:column; }
@@ -168,8 +168,8 @@
   .plan-name-input:focus{ border-color:var(--accent); }
   .section-label{ font-size:13px; color:var(--text-dim); font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em; }
   .input-group-label{ font-size:11px; color:var(--text-dim); font-weight:600; margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; text-align:center; }
-  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:10px 8px; min-width:0; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:5px; }
-  .input-field-wrapper input{ width:22px; min-width:0; flex-shrink:0; background:transparent; text-align:center; border:none; outline:none; padding:0; }
+  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:10px 10px; min-width:0; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:6px; }
+  .input-field-wrapper input{ width:auto; max-width:44px; min-width:0; flex-shrink:1; background:transparent; text-align:center; border:none; outline:none; padding:0; font-size:14px; }
   .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; }
   .input-field-inline-label{ font-size:8.5px; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; }
 </style>
@@ -841,18 +841,18 @@ function renderModalExercises(){
   const el = document.getElementById('modal-exercise-list');
   el.innerHTML = activeWorkout.exercises.map((ex, exIdx)=>{
     const setsHTML = ex.sets.map((st, stIdx)=> `
-      <div class="set-row ${st.done?'done':''} rounded-2xl px-3 py-3" style="background:var(--tile); border:1px solid var(--hairline)" data-ex="${exIdx}" data-set="${stIdx}">
+      <div class="set-row ${st.done?'done':''} rounded-2xl px-3 py-3.5" style="background:var(--tile); border:1px solid var(--hairline)" data-ex="${exIdx}" data-set="${stIdx}">
         <span class="text-[13px] font-semibold text-center" style="color:var(--text-dim)">${stIdx+1}</span>
 
         <div class="input-field-wrapper">
           <span class="input-field-inline-label">Ciężar</span>
-          <input type="number" inputmode="decimal" class="input-weight text-[15px] font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
+          <input type="number" inputmode="decimal" class="input-weight font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
           <span class="input-field-label-small">kg</span>
         </div>
 
         <div class="input-field-wrapper">
-          <span class="input-field-inline-label">Powtórzenia</span>
-          <input type="number" inputmode="numeric" class="input-reps text-[15px] font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
+          <span class="input-field-inline-label">Powt.</span>
+          <input type="number" inputmode="numeric" class="input-reps font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
         </div>
 
         <button class="checkbtn tap check-toggle" data-ex="${exIdx}" data-set="${stIdx}" style="margin:0 auto;">
