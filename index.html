@@ -11,8 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="FORGE">
 <meta name="theme-color" content="#0D0D0D">
 <meta name="color-scheme" content="dark">
-  
-<link rel="manifest" href="manifest.json">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -1234,14 +1233,7 @@ if(profile && profile.name){
   }, 1500);
 })();
 
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(() => console.log('Service Worker zarejestrowany!'))
-        .catch(err => console.log('Błąd rejestracji SW:', err));
-    });
-  }
 </script>
+
 </body>
 </html>
