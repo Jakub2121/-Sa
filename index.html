@@ -85,19 +85,46 @@
   body{ font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; color:#fff; min-height:100dvh; }
   .safe-top{ padding-top:max(env(safe-area-inset-top),20px); }
   .safe-bottom{ padding-bottom:max(env(safe-area-inset-bottom),14px); }
-  .app-shell{ max-width:428px; margin:0 auto; min-height:100dvh; position:relative; background:var(--bg); overflow-x:hidden; }
+  .app-shell{ max-width:428px; margin:0 auto; min-height:100dvh; position:relative; background:var(--bg); overflow-x:hidden; animation:appBoot .6s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes appBoot{ from{opacity:0; transform:scale(0.97) translateY(6px);} to{opacity:1; transform:scale(1) translateY(0);} }
   @media (min-width:429px){
     body{ background:radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 60%); }
     .app-shell{ box-shadow:0 0 0 1px #222, 0 40px 100px -20px rgba(0,0,0,.8); }
   }
-  .tap{ transition:transform .12s ease, opacity .12s ease; }
+  .tap{ transition:transform .18s cubic-bezier(.34,1.56,.64,1), opacity .15s ease, box-shadow .2s ease; }
   .tap:active{ transform:scale(0.96); opacity:.85; }
+  .transition{ transition:all .25s cubic-bezier(.4,0,.2,1); }
+  .transition-all{ transition:all .25s cubic-bezier(.4,0,.2,1); }
   .hero-glow{ box-shadow:0 20px 50px -15px rgba(208,253,56,0.35); }
   .nav-blur{ background:rgba(13,13,13,0.8); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); }
   .progress-track{ background:#2E2E30; }
   .progress-fill{ background:var(--accent); }
   .streak-dot{ animation:pulse-dot 2.2s ease-in-out infinite; }
   @keyframes pulse-dot{ 0%,100%{box-shadow:0 0 0 0 rgba(208,253,56,.5);} 50%{box-shadow:0 0 0 6px rgba(208,253,56,0);} }
+
+  /* ===== ANIMACJE WEJŚCIA (entrance) ===== */
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes scaleFade{ from{opacity:0; transform:scale(0.94);} to{opacity:1; transform:scale(1);} }
+  @keyframes softPulse{ 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.08); opacity:.85; } }
+  @keyframes ringPulse{ 0%{ box-shadow:0 0 0 0 rgba(13,13,13,0.18); } 70%{ box-shadow:0 0 0 10px rgba(13,13,13,0); } 100%{ box-shadow:0 0 0 0 rgba(13,13,13,0); } }
+  @keyframes accentPing{ 0%{ transform:scale(1); opacity:.7; } 75%,100%{ transform:scale(2.4); opacity:0; } }
+  @keyframes routeIn{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+  .anim-in{ animation:fadeUp .55s cubic-bezier(.16,1,.3,1) both; }
+  .anim-in-scale{ animation:scaleFade .55s cubic-bezier(.16,1,.3,1) both; }
+  .d-1{ animation-delay:.05s; } .d-2{ animation-delay:.12s; } .d-3{ animation-delay:.19s; } .d-4{ animation-delay:.26s; } .d-5{ animation-delay:.33s; }
+
+  .hero-icon-pulse{ animation:softPulse 2.6s ease-in-out infinite; display:inline-block; }
+  .hero-ring{ animation:ringPulse 2.4s ease-out infinite; border-radius:9999px; }
+
+  .route-view{ animation:routeIn .38s cubic-bezier(.16,1,.3,1) both; }
+
+  .stat-tile{ transition:transform .2s cubic-bezier(.34,1.56,.64,1); }
+  .stat-tile:active{ transform:scale(0.95); }
+
+  .nav-pill{ transition:background-color .25s cubic-bezier(.4,0,.2,1); }
+  .nav-icon, .nav-label{ transition:color .25s cubic-bezier(.4,0,.2,1); }
+  .nav-item[data-active="true"] .nav-icon{ animation:scaleFade .3s cubic-bezier(.34,1.56,.64,1) both; }
   .nav-item[data-active="true"] .nav-pill{ background:rgba(208,253,56,0.12); }
   .nav-item[data-active="true"] .nav-icon{ color:var(--accent); }
   .nav-item[data-active="true"] .nav-label{ color:var(--accent); }
@@ -179,7 +206,7 @@
 <div class="app-shell safe-top">
 
   <!-- ============ HEADER ============ -->
-  <header class="flex items-start justify-between px-6 pt-2 pb-5">
+  <header class="flex items-start justify-between px-6 pt-2 pb-5 anim-in d-1">
     <div>
       <h1 class="text-[26px] font-extrabold leading-tight tracking-tight"><span id="greeting-name">Witaj</span> <span>👋</span></h1>
       <p class="text-[14px] mt-1" style="color:var(--text-dim)">Dzisiaj możesz zrobić więcej niż wczoraj.</p>
@@ -187,7 +214,9 @@
     <div class="flex items-center gap-2 shrink-0 mt-0.5">
       <button class="tap relative w-11 h-11 rounded-full flex items-center justify-center" style="background:var(--tile)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full" style="background:var(--accent)"></span>
+        <span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full" style="background:var(--accent)">
+          <span class="absolute inset-0 rounded-full" style="background:var(--accent); animation:accentPing 2.4s ease-out infinite;"></span>
+        </span>
       </button>
       <button class="tap w-11 h-11 rounded-full overflow-hidden flex items-center justify-center" style="background:var(--tile); box-shadow:0 0 0 2px var(--accent)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -196,13 +225,13 @@
   </header>
 
   <!-- ============ HOME VIEW ============ -->
-  <main id="view-home" class="view px-5 pb-32">
-    <div class="mb-6">
+  <main id="view-home" class="view route-view px-5 pb-32">
+    <div class="mb-6 anim-in-scale d-2">
       <div class="rounded-3xl p-6 transition-all" style="background:var(--accent); border:none;">
         <p class="text-[13px] font-semibold" style="color:rgba(13,13,13,0.65); margin-bottom:8px; text-transform:uppercase; letter-spacing:.05em;">Dzisiejszy Trening</p>
         <div class="flex items-center gap-3 mb-6">
           <h2 id="today-workout-name" class="text-[36px] font-black leading-tight" style="color:#0D0D0D">—</h2>
-          <span style="font-size:32px">🏋️</span>
+          <span class="hero-icon-pulse" style="font-size:32px">🏋️</span>
         </div>
         
         <div class="flex items-center gap-6 mb-6">
@@ -224,7 +253,7 @@
       </div>
     </div>
 
-    <div class="mb-6">
+    <div class="mb-6 anim-in d-3">
       <div class="flex items-center justify-between mb-4 px-1">
         <p class="text-[18px] font-bold">Moja Aktywność</p>
         <a href="#" onclick="switchView('stats'); return false;" class="text-[13px] font-semibold" style="color:var(--accent)">Szczegóły</a>
@@ -232,7 +261,7 @@
       <div class="grid grid-cols-3 gap-3" id="home-activity-stats"></div>
     </div>
 
-    <div>
+    <div class="anim-in d-4">
       <div class="flex items-center justify-between mb-4 px-1">
         <p class="text-[18px] font-bold">Ostatnie treningi</p>
         <a href="#" onclick="switchView('history'); return false;" class="text-[14px]" style="color:var(--accent)">Wszystkie</a>
@@ -242,7 +271,7 @@
   </main>
 
   <!-- ============ PLANS VIEW ============ -->
-  <main id="view-plans" class="view px-5 pb-32">
+  <main id="view-plans" class="view route-view px-5 pb-32">
     <div class="flex items-center justify-between mb-6 px-1">
       <p class="text-[22px] font-extrabold">Moje Plany</p>
     </div>
@@ -251,7 +280,7 @@
   </main>
 
   <!-- ============ STATS VIEW ============ -->
-  <main id="view-stats" class="view px-5 pb-32">
+  <main id="view-stats" class="view route-view px-5 pb-32">
     <div class="text-center py-12">
       <p class="text-[14px] mb-2" style="color:var(--text-dim)">Statystyki</p>
       <h2 class="text-[24px] font-extrabold mb-6">Twoje Osiągnięcia</h2>
@@ -260,7 +289,7 @@
   </main>
 
   <!-- ============ HISTORY VIEW ============ -->
-  <main id="view-history" class="view px-5 pb-32">
+  <main id="view-history" class="view route-view px-5 pb-32">
     <div>
       <h2 class="text-[26px] font-extrabold mb-6 px-1">Historia Treningów</h2>
       <div id="history-list"></div>
@@ -268,7 +297,7 @@
   </main>
 
   <!-- ============ SETTINGS VIEW ============ -->
-  <main id="view-settings" class="view px-5 pb-32">
+  <main id="view-settings" class="view route-view px-5 pb-32">
     <div>
       <h2 class="text-[26px] font-extrabold mb-6 px-1">Ustawienia</h2>
       <div id="settings-container"></div>
@@ -540,6 +569,28 @@ function formatDate(dateStr){
   return d.toLocaleDateString('pl-PL');
 }
 
+function animateCountUps(){
+  document.querySelectorAll('.count-up').forEach(el => {
+    const target = parseFloat(el.dataset.count) || 0;
+    const suffix = el.dataset.suffix || '';
+    const duration = 700;
+    const startTime = performance.now();
+
+    function step(now){
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const current = Math.round(target * eased);
+      el.textContent = current + suffix;
+      if(progress < 1){
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target + suffix;
+      }
+    }
+    requestAnimationFrame(step);
+  });
+}
+
 function getLastWeight(exerciseName){
   for(let i = db.history.length - 1; i >= 0; i--){
     const record = db.history[i];
@@ -570,7 +621,13 @@ function getPersonalRecord(exerciseName){
 
 function switchView(viewName){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(`view-${viewName}`).classList.add('active');
+  const target = document.getElementById(`view-${viewName}`);
+  target.classList.add('active');
+
+  // odtwórz animację wejścia za każdym przełączeniem zakładki
+  target.classList.remove('route-view');
+  void target.offsetWidth; // wymuszenie reflow, by animacja wystartowała od nowa
+  target.classList.add('route-view');
   
   document.querySelectorAll('.nav-item').forEach(item => {
     const isActive = item.dataset.view === viewName;
@@ -652,23 +709,24 @@ function renderHome(){
   const weekDuration = weekWorkouts.reduce((sum, rec) => sum + rec.durationMin, 0);
 
   const statsHtml = `
-    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+    <div class="stat-tile" style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
       <p style="font-size:12px; color:var(--text-dim); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;">Treningi</p>
-      <p style="font-size:24px; font-weight:900; color:var(--accent);">${weekWorkouts.length}</p>
+      <p class="count-up" data-count="${weekWorkouts.length}" data-suffix="" style="font-size:24px; font-weight:900; color:var(--accent);">0</p>
       <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">W tym tygodniu</p>
     </div>
-    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+    <div class="stat-tile" style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
       <p style="font-size:12px; color:var(--text-dim); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;">Tonnage</p>
-      <p style="font-size:24px; font-weight:900; color:var(--accent);">${weekTonnage.toFixed(0)} kg</p>
+      <p class="count-up" data-count="${weekTonnage.toFixed(0)}" data-suffix=" kg" style="font-size:24px; font-weight:900; color:var(--accent);">0</p>
       <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">W tym tygodniu</p>
     </div>
-    <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
+    <div class="stat-tile" style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; text-align:center;">
       <p style="font-size:12px; color:var(--text-dim); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:.05em;">Czas</p>
       <p style="font-size:24px; font-weight:900; color:var(--accent);">${Math.floor(weekDuration/60)}h ${weekDuration%60}m</p>
       <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">W tym tygodniu</p>
     </div>
   `;
   document.getElementById('home-activity-stats').innerHTML = statsHtml;
+  animateCountUps();
 
   const recentHtml = db.history.slice(-3).reverse().map(rec => `
     <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:12px; margin-bottom:10px;">
