@@ -256,29 +256,42 @@
   <!-- ============ HOME VIEW ============ -->
   <main id="view-home" class="view px-5 pb-32">
     <div class="mb-6">
-      <div class="rounded-3xl p-6 transition-all" style="background:var(--accent); border:none;">
-        <p class="text-[13px] font-semibold" style="color:rgba(13,13,13,0.65); margin-bottom:8px; text-transform:uppercase; letter-spacing:.05em;">Dzisiejszy Trening</p>
-        <div class="flex items-center gap-3 mb-6">
-          <h2 id="today-workout-name" class="text-[36px] font-black leading-tight" style="color:#0D0D0D">—</h2>
-          <span class="hero-icon-pulse" style="font-size:32px">🏋️</span>
-        </div>
-        
-        <div class="flex items-center gap-6 mb-6">
-          <div>
-            <p class="text-[12px] font-semibold" style="color:rgba(13,13,13,0.6); margin-bottom:4px;">Ćwiczenia</p>
-            <p id="today-workout-exercises" class="text-[22px] font-black" style="color:#0D0D0D">—</p>
-          </div>
-          <div style="width:1px; height:40px; background:rgba(13,13,13,0.15)"></div>
-          <div>
-            <p class="text-[12px] font-semibold" style="color:rgba(13,13,13,0.6); margin-bottom:4px;">Czas</p>
-            <p id="today-workout-duration" class="text-[22px] font-black" style="color:#0D0D0D">—</p>
-          </div>
-        </div>
+      <div class="rounded-3xl p-6 transition-all" style="position:relative; overflow:hidden; border:none; background:linear-gradient(135deg, #b8f000 0%, #d0fd38 100%); box-shadow:0 20px 40px -15px rgba(208,253,56,0.35);">
 
-        <button id="btn-start" class="tap w-full py-4 px-4 rounded-2xl font-extrabold text-[15px] transition-all flex items-center justify-center gap-2" style="background:#0D0D0D; color:var(--accent)">
-          <span id="btn-start-text">START TRENING</span>
-          <span style="font-size:18px">→</span>
-        </button>
+        <!-- Watermark: subtelny akcent w tle (symbol hantli) -->
+        <svg width="190" height="190" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="1" style="position:absolute; right:-30px; bottom:-30px; opacity:0.12; pointer-events:none; z-index:0;">
+          <rect x="1.5" y="9" width="3.5" height="6" rx="1"/>
+          <rect x="19" y="9" width="3.5" height="6" rx="1"/>
+          <rect x="5.5" y="7" width="2.5" height="10" rx="1"/>
+          <rect x="16" y="7" width="2.5" height="10" rx="1"/>
+          <rect x="8" y="10.7" width="8" height="2.6" rx="1"/>
+        </svg>
+
+        <!-- Pływająca pigułka (glassmorphism badge) -->
+        <span style="position:absolute; top:16px; left:16px; z-index:2; background:rgba(0,0,0,0.12); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:9999px; padding:6px 14px; font-size:11px; font-weight:800; letter-spacing:.05em; color:#0d0d0d; text-transform:uppercase;">Dzisiejszy Trening</span>
+
+        <div style="position:relative; z-index:1; margin-top:46px;">
+          <div class="mb-6">
+            <h2 id="today-workout-name" class="text-[36px] font-black leading-tight" style="color:#0D0D0D">—</h2>
+          </div>
+
+          <div class="flex items-center gap-6 mb-6">
+            <div>
+              <p class="text-[12px] font-semibold" style="color:rgba(13,13,13,0.6); margin-bottom:4px;">Ćwiczenia</p>
+              <p id="today-workout-exercises" class="text-[22px] font-black" style="color:#0D0D0D">—</p>
+            </div>
+            <div style="width:1px; height:40px; background:rgba(13,13,13,0.15)"></div>
+            <div>
+              <p class="text-[12px] font-semibold" style="color:rgba(13,13,13,0.6); margin-bottom:4px;">Czas</p>
+              <p id="today-workout-duration" class="text-[22px] font-black" style="color:#0D0D0D">—</p>
+            </div>
+          </div>
+
+          <button id="btn-start" class="tap w-full py-4 px-4 rounded-2xl font-extrabold text-[15px] transition-all flex items-center justify-center gap-2" style="background:#0D0D0D; color:var(--accent); box-shadow:0 10px 20px -5px rgba(0,0,0,0.35);">
+            <span id="btn-start-text">START TRENING</span>
+            <span style="font-size:18px">→</span>
+          </button>
+        </div>
       </div>
     </div>
 
