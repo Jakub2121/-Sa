@@ -143,9 +143,10 @@
   .day-badge{ padding:4px 8px; background:var(--tile-2); border-radius:6px; font-size:11px; color:var(--text-dim); }
   .day-badge.active{ background:var(--accent); color:#0D0D0D; font-weight:600; }
   .plan-card-actions{ display:flex; gap:8px; }
-  .btn-small{ flex:1; height:40px; border-radius:12px; border:none; font-size:13px; font-weight:600; cursor:pointer; }
-  .btn-small-primary{ background:var(--accent); color:#0D0D0D; }
-  .btn-small-danger{ background:#ff3b30; color:#fff; }
+  .btn-small{ flex:1; height:44px; border-radius:12px; border:none; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; }
+  .btn-small-start{ background:var(--accent); color:#0D0D0D; box-shadow:0 6px 16px -4px rgba(208,253,56,0.4); flex:1.6; }
+  .btn-small-secondary{ background:var(--tile-2); color:#fff; border:1px solid var(--hairline); }
+  .btn-small-danger{ background:transparent; border:1px solid rgba(255,59,48,0.35); color:#ff3b30; flex:0.7; }
   .day-selector{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:20px; }
   .day-btn{ padding:10px 4px; background:var(--tile-2); border:2px solid var(--hairline); border-radius:10px; color:var(--text-dim); font-size:12px; font-weight:600; cursor:pointer; text-align:center; }
   .day-btn.active{ background:var(--accent); border-color:var(--accent); color:#0D0D0D; }
@@ -167,9 +168,10 @@
   .plan-name-input:focus{ border-color:var(--accent); }
   .section-label{ font-size:13px; color:var(--text-dim); font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em; }
   .input-group-label{ font-size:11px; color:var(--text-dim); font-weight:600; margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; text-align:center; }
-  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:8px 4px; min-width:0; display:flex; flex-direction:column; align-items:center; gap:2px; }
-  .input-field-wrapper input{ width:100%; min-width:0; background:transparent; text-align:center; border:none; outline:none; }
-  .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; margin-top:2px; text-align:center; }
+  .input-field-wrapper{ background:var(--tile-2); border-radius:12px; padding:10px 8px; min-width:0; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:5px; }
+  .input-field-wrapper input{ width:22px; min-width:0; flex-shrink:0; background:transparent; text-align:center; border:none; outline:none; padding:0; }
+  .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; }
+  .input-field-inline-label{ font-size:8.5px; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -695,8 +697,11 @@ function renderPlans(){
       </div>
       <p style="font-size:12px; color:var(--text-dim); margin-bottom:12px;">${plan.exercises.length} ćwiczeń</p>
       <div class="plan-card-actions">
-        <button class="btn-small btn-small-primary tap" onclick="openPlanEditor('${plan.id}')">Edytuj</button>
-        <button class="btn-small btn-small-danger tap" onclick="deletePlan('${plan.id}')">Usuń</button>
+        <button class="btn-small btn-small-start tap" onclick="openWorkoutModal('${plan.id}')">
+          <span style="font-size:15px">🔥</span> Zaczynamy
+        </button>
+        <button class="btn-small btn-small-secondary tap" onclick="openPlanEditor('${plan.id}')">Edytuj</button>
+        <button class="btn-small btn-small-danger tap" onclick="deletePlan('${plan.id}')">✕</button>
       </div>
     </div>
   `).join('');
@@ -840,15 +845,14 @@ function renderModalExercises(){
         <span class="text-[13px] font-semibold text-center" style="color:var(--text-dim)">${stIdx+1}</span>
 
         <div class="input-field-wrapper">
-          <span class="input-group-label">Waga</span>
-          <input type="number" inputmode="decimal" class="input-weight text-[16px] font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
-          <div class="input-field-label-small">kg</div>
+          <span class="input-field-inline-label">Ciężar</span>
+          <input type="number" inputmode="decimal" class="input-weight text-[15px] font-bold" value="${st.weight}" min="0" step="2.5" data-ex="${exIdx}" data-set="${stIdx}">
+          <span class="input-field-label-small">kg</span>
         </div>
 
         <div class="input-field-wrapper">
-          <span class="input-group-label">Powt.</span>
-          <input type="number" inputmode="numeric" class="input-reps text-[16px] font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
-          <div class="input-field-label-small">pow.</div>
+          <span class="input-field-inline-label">Powtórzenia</span>
+          <input type="number" inputmode="numeric" class="input-reps text-[15px] font-bold" value="${st.reps}" min="0" step="1" data-ex="${exIdx}" data-set="${stIdx}">
         </div>
 
         <button class="checkbtn tap check-toggle" data-ex="${exIdx}" data-set="${stIdx}" style="margin:0 auto;">
