@@ -1,5 +1,5 @@
 // Zmieniaj numer wersji (np. v2, v3...), gdy wypuszczasz ważną aktualizację!
-const CACHE_NAME = 'forge-cache-v2';
+const CACHE_NAME = 'forge-cache-v3';
 
 const ASSETS_TO_CACHE = [
   './',
