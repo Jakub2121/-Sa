@@ -249,7 +249,29 @@
 <body>
 
 <div id="splash-screen">
-  <span class="splash-text">Trenujmy</span>
+  <span class="splash-text">
+    <!-- Logo SVG pionowo w prawym górnym rogu (zwiększone i zabezpieczone przed ucinaniem) -->
+<svg width="150" height="33" viewBox="0 0 205 45" fill="none" xmlns="http://www.w3.org/2000/svg" 
+     style="position: absolute; top: 20px; right: 15px; z-index: 2; transform-origin: top right; opacity: 0.35; pointer-events: none;">
+  <!-- F -->
+  <path d="M0 5H28V12H9V21H24V28H9V40H0V5Z" fill="#0D0D0D"/>
+  
+  <!-- O (Minimalistyczny obciążnik) -->
+  <g transform="translate(35, 3)">
+    <circle cx="20" cy="20" r="17" stroke="#0D0D0D" stroke-width="5" fill="none"/>
+    <circle cx="20" cy="20" r="6" fill="#0D0D0D"/>
+  </g>
+
+  <!-- R -->
+  <path d="M82 5H106C114 5 119 9 119 16C119 21 115 24 109 25.5L120 40H110L100 26.5H91V40H82V5ZM91 12V20H105C109 20 111 18.5 111 16C111 13.5 109 12 105 12H91Z" fill="#0D0D0D"/>
+  
+  <!-- G -->
+  <path d="M162 5H139C133 5 130 9 130 15V30C130 36 133 40 139 40H162V22H146V29H153V33H139V12H162V5Z" fill="#0D0D0D"/>
+  
+  <!-- E -->
+  <path d="M172 5H200V12H181V19H196V26H181V33H200V40H172V5Z" fill="#0D0D0D"/>
+</svg>
+  </span>
 </div>
 
 <div class="app-shell safe-top">
