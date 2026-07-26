@@ -244,6 +244,21 @@
   .input-field-wrapper input{ width:auto; max-width:44px; min-width:0; flex-shrink:1; background:transparent; text-align:center; border:none; outline:none; padding:0; font-size:14px; }
   .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; }
   .input-field-inline-label{ font-size:8.5px; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; }
+
+
+.hero-card{ position:relative; overflow:hidden; }
+.hero-card-content{ position:relative; z-index:2; }
+.hero-svg-accent{
+  position:absolute;
+  top:14px;
+  right:-55px;
+  transform:rotate(-90deg);
+  transform-origin:center right;
+  pointer-events:none;
+  opacity:0.25;
+  z-index:1;
+}
+
 </style>
 </head>
 <body>
