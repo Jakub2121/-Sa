@@ -618,14 +618,41 @@ function saveDB(data){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+// Zwraca prawdziwą datę zapisu treningu — preferuje completedAt (nowe wpisy),
+// z fallbackiem na date (starsze wpisy sprzed tej zmiany) lub bieżącą datę,
+// żeby wpisy bez completedAt nigdy nie powodowały błędu.
+function getRecordDate(rec){
+  return (rec && (rec.completedAt || rec.date)) || new Date().toISOString();
+}
+
+// Zwraca {completed, total} ćwiczeń dla wpisu z historii.
+// Starsze wpisy sprzed tej zmiany nie mają completedExercisesCount/totalExercisesCount —
+// w takim wypadku bezpiecznie zaliczamy pełną liczbę (100%), żeby nic nie rzuciło błędem.
+function getExerciseCompletion(rec){
+  const total = (rec && typeof rec.totalExercisesCount === 'number')
+    ? rec.totalExercisesCount
+    : (rec && rec.exercises ? rec.exercises.length : 0);
+  const completed = (rec && typeof rec.completedExercisesCount === 'number')
+    ? rec.completedExercisesCount
+    : total;
+  return { completed, total };
+}
+
 function formatDate(dateStr){
   const d = new Date(dateStr);
+  if(isNaN(d.getTime())) return 'Nieznana data';
+
   const now = new Date();
-  const diffDays = Math.floor((now - d) / (1000*60*60*24));
+  // Porównanie PEŁNYCH dni kalendarzowych (północ-północ), a nie surowej
+  // różnicy w milisekundach / 24h — inaczej trening sprzed 13h (ale wczoraj)
+  // błędnie pokazywałby się jako "Dzisiaj".
+  const startOfDay = (date) => { const x = new Date(date); x.setHours(0,0,0,0); return x; };
+  const diffDays = Math.round((startOfDay(now) - startOfDay(d)) / (1000*60*60*24));
+
   if(diffDays === 0) return 'Dzisiaj';
   if(diffDays === 1) return 'Wczoraj';
-  if(diffDays < 7) return `${diffDays} dni temu`;
-  return d.toLocaleDateString('pl-PL');
+  if(diffDays > 1 && diffDays < 7) return `${diffDays} dni temu`;
+  return d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' });
 }
 
 function animateCountUps(){
@@ -763,7 +790,7 @@ function renderHome(){
   weekStart.setDate(now.getDate() - now.getDay());
   weekStart.setHours(0, 0, 0, 0);
 
-  const weekWorkouts = db.history.filter(rec => new Date(rec.date) >= weekStart);
+  const weekWorkouts = db.history.filter(rec => new Date(getRecordDate(rec)) >= weekStart);
   const weekTonnage = weekWorkouts.reduce((sum, rec) => sum + rec.tonnage, 0);
   const weekDuration = weekWorkouts.reduce((sum, rec) => sum + rec.durationMin, 0);
 
@@ -795,7 +822,7 @@ function renderHome(){
     <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:12px; margin-bottom:10px;">
       <div class="flex items-center justify-between mb-2">
         <p class="font-bold text-[14px]">${rec.plan}</p>
-        <span class="text-[12px]" style="color:var(--text-dim)">${formatDate(rec.date)}</span>
+        <span class="text-[12px]" style="color:var(--text-dim)">${formatDate(getRecordDate(rec))}</span>
       </div>
       <div class="flex items-center gap-4">
         <span class="text-[13px]" style="color:var(--text-dim)">⏱ ${rec.durationMin} min</span>
@@ -862,7 +889,7 @@ function getMondayOf(date){
 // z co najmniej jednym treningiem
 function computeWeeklyStreak(){
   const weeksWithWorkout = new Set(
-    db.history.map(rec => getMondayOf(new Date(rec.date)).toISOString().slice(0,10))
+    db.history.map(rec => getMondayOf(new Date(getRecordDate(rec))).toISOString().slice(0,10))
   );
 
   let cursor = getMondayOf(new Date());
@@ -891,7 +918,7 @@ function getLastNWeeksTonnage(n){
     weekEnd.setDate(weekEnd.getDate() + 7);
 
     const tonnage = db.history
-      .filter(rec => { const d = new Date(rec.date); return d >= weekStart && d < weekEnd; })
+      .filter(rec => { const d = new Date(getRecordDate(rec)); return d >= weekStart && d < weekEnd; })
       .reduce((sum, rec) => sum + rec.tonnage, 0);
 
     weeks.push({ label: i === 0 ? 'Ten' : `T-${i}`, value: tonnage, isCurrent: i === 0 });
@@ -909,7 +936,7 @@ function getMuscleBalance30Days(){
   let total = 0;
 
   db.history.forEach(rec => {
-    if(new Date(rec.date) < cutoff) return;
+    if(new Date(getRecordDate(rec)) < cutoff) return;
     rec.exercises.forEach(ex => {
       const doneSets = ex.sets.filter(s => s.done).length;
       if(doneSets === 0) return;
@@ -940,7 +967,7 @@ function buildHeatmapHtml(){
 
   const workoutDays = new Set(
     db.history.map(rec => {
-      const d = new Date(rec.date);
+      const d = new Date(getRecordDate(rec));
       d.setHours(0,0,0,0);
       return d.toISOString().slice(0,10);
     })
@@ -1126,19 +1153,22 @@ function renderStats(){
 
 /* ========== RENDER HISTORY ============ */
 function renderHistory(){
-  const html = db.history.reverse().map(rec => `
+  const html = db.history.reverse().map(rec => {
+    const { completed, total } = getExerciseCompletion(rec);
+    return `
     <div style="background:var(--tile); border:1px solid var(--hairline); border-radius:16px; padding:16px; margin-bottom:12px;">
       <div class="flex items-center justify-between mb-2">
         <p class="font-bold">${rec.plan}</p>
-        <span class="text-[12px]" style="color:var(--text-dim)">${formatDate(rec.date)}</span>
+        <span class="text-[12px]" style="color:var(--text-dim)">${formatDate(getRecordDate(rec))}</span>
       </div>
       <div class="flex items-center gap-6 text-[13px]" style="color:var(--text-dim);">
         <span>⏱ ${rec.durationMin} min</span>
         <span>💪 ${rec.tonnage.toFixed(0)} kg</span>
-        <span>🏋️ ${rec.exercises.length} ćwiczeń</span>
+        <span>🏋️ ${completed}/${total} ćwiczeń</span>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
   document.getElementById('history-list').innerHTML = html || '<p style="color:var(--text-dim); text-align:center; padding:20px;">Brak historii treningów</p>';
 }
 
@@ -1285,13 +1315,20 @@ async function finishWorkout(){
   const elapsedMin = Math.max(1, Math.round((Date.now() - workoutStart)/60000));
   const tonnage = activeWorkout.exercises.reduce((s,ex)=> s + ex.sets.reduce((s2,st)=> s2 + (st.done ? st.weight*st.reps : 0), 0), 0);
 
+  // Ćwiczenie liczymy jako "wykonane", jeśli odznaczono w nim przynajmniej jedną serię
+  const totalExercisesCount = activeWorkout.exercises.length;
+  const completedExercisesCount = activeWorkout.exercises.filter(ex => ex.sets.some(st => st.done)).length;
+
   const record = {
     id: Date.now(),
     date: new Date().toISOString(),
+    completedAt: new Date().toISOString(),
     plan: activeWorkout.plan,
     exercises: activeWorkout.exercises,
     tonnage,
-    durationMin: elapsedMin
+    durationMin: elapsedMin,
+    completedExercisesCount,
+    totalExercisesCount
   };
   db.history.push(record);
   saveDB(db);
