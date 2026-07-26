@@ -530,51 +530,135 @@ const DAYS_FULL = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek',
 const MONTHS_GENITIVE = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
 
 /* ========== EXERCISE LIBRARY ========== */
+/* ========== EXERCISE LIBRARY (PEŁNA BAZA) ========== */
 const EXERCISE_LIBRARY = {
   'Klatka': [
+    // Sztanga & Hantle
     { name: 'Wyciskanie sztangi leżąc', muscle: 'Klatka' },
+    { name: 'Wyciskanie sztangi na ławce skośnej (dodatniej)', muscle: 'Klatka' },
+    { name: 'Wyciskanie sztangi na ławce skośnej (ujemnej)', muscle: 'Klatka' },
     { name: 'Wyciskanie hantli leżąc', muscle: 'Klatka' },
-    { name: 'Rozpiętki na maszynie', muscle: 'Klatka' },
-    { name: 'Push-ups', muscle: 'Klatka' },
-    { name: 'Prasy nożne w dół', muscle: 'Klatka' },
+    { name: 'Wyciskanie hantli na ławce skośnej', muscle: 'Klatka' },
+    { name: 'Rozpiętki z hantlami na ławce poziomej', muscle: 'Klatka' },
+    { name: 'Rozpiętki z hantlami na ławce skośnej', muscle: 'Klatka' },
+    { name: 'Przenoszenie hantla za głowę (Pullover)', muscle: 'Klatka' },
+    { name: 'Wyciskanie sztangi półstojąc (Landmine Press)', muscle: 'Klatka' },
+    // Maszyny & Wyciągi
+    { name: 'Rozpiętki na maszynie (Pec Deck)', muscle: 'Klatka' },
+    { name: 'Wyciskanie na maszynie Siedząc (Chest Press)', muscle: 'Klatka' },
+    { name: 'Ściąganie linek wyciągu górnego (Brama)', muscle: 'Klatka' },
+    { name: 'Ściąganie linek wyciągu dolnego', muscle: 'Klatka' },
+    // Kalistenika
+    { name: 'Pompki klasyczne (Push-ups)', muscle: 'Klatka' },
+    { name: 'Pompki na poręczach (Dips)', muscle: 'Klatka' },
+    { name: 'Pompki z nogami na podwyższeniu', muscle: 'Klatka' }
   ],
+
   'Plecy': [
-    { name: 'Przyciągi sztangi', muscle: 'Plecy' },
-    { name: 'Przyciągi hantli', muscle: 'Plecy' },
-    { name: 'Wiosłowania na maszynie', muscle: 'Plecy' },
-    { name: 'Podciągi sztangi', muscle: 'Plecy' },
-    { name: 'Podciągi na maszynie', muscle: 'Plecy' },
+    // Ciężkie ćwiczenia wielostawowe
+    { name: 'Martwy ciąg klasyczny ze sztangą', muscle: 'Plecy' },
+    { name: 'Martwy ciąg Sumo', muscle: 'Plecy' },
+    { name: 'Wiosłowanie sztangą w opadzie (nachwyt)', muscle: 'Plecy' },
+    { name: 'Wiosłowanie sztangą (podchwyt)', muscle: 'Plecy' },
+    { name: 'Wiosłowanie Pendlaya (Pendlay Row)', muscle: 'Plecy' },
+    { name: 'Wiosłowanie hantlem jednorącz', muscle: 'Plecy' },
+    { name: 'Wiosłowanie półsztangą / T-Bar Row', muscle: 'Plecy' },
+    // Drążki & Wyciągi
+    { name: 'Podciąganie na drążku nachwytem', muscle: 'Plecy' },
+    { name: 'Podciąganie na drążku podchwytem', muscle: 'Plecy' },
+    { name: 'Ściąganie drążka wyciągu górnego do klatki', muscle: 'Plecy' },
+    { name: 'Ściąganie drążka do klatki w wąskim chwycie (Neutral)', muscle: 'Plecy' },
+    { name: 'Przyciąganie uchwytu wyciągu dolnego do brzucha', muscle: 'Plecy' },
+    { name: 'Przyciąganie linek wyciągu prostymi ramionami (Narciarz)', muscle: 'Plecy' },
+    { name: 'Wiosłowanie na maszynie siedząc', muscle: 'Plecy' },
+    // Inne
+    { name: 'Face Pulls (Góra pleców / Tył barku)', muscle: 'Plecy' },
+    { name: 'Szrugsy ze sztangą (Kaptury)', muscle: 'Plecy' },
+    { name: 'Szrugsy z hantlami', muscle: 'Plecy' },
+    { name: 'Dzień dobry ze sztangą (Good Morning)', muscle: 'Plecy' }
   ],
+
   'Nogi': [
-    { name: 'Przysiady ze sztangą', muscle: 'Nogi' },
-    { name: 'Prasa nożna', muscle: 'Nogi' },
-    { name: 'Leg Curls', muscle: 'Nogi' },
-    { name: 'Wyciągi nóg', muscle: 'Nogi' },
-    { name: 'Lunges', muscle: 'Nogi' },
+    // Przysiady & Wariacje
+    { name: 'Przysiad ze sztangą na karku (Back Squat)', muscle: 'Nogi' },
+    { name: 'Przysiad z przodu (Front Squat)', muscle: 'Nogi' },
+    { name: 'Przysiad bułgarski z hantlami (Bulgarian Split Squat)', muscle: 'Nogi' },
+    { name: 'Hack Przysiad na maszynie', muscle: 'Nogi' },
+    { name: 'Przysiad goblet z hantlem / kettlebellem', muscle: 'Nogi' },
+    // Maszyny & Suwnice
+    { name: 'Wypychanie ciężaru na suwnicy (Leg Press)', muscle: 'Nogi' },
+    { name: 'Prostowanie nóg na maszynie (Czworogłowe)', muscle: 'Nogi' },
+    { name: 'Uginanie nóg leżąc na maszynie (Dwugłowe)', muscle: 'Nogi' },
+    { name: 'Uginanie nóg siedząc na maszynie', muscle: 'Nogi' },
+    { name: 'Odwodzenie nóg na maszynie (Pośladki)', muscle: 'Nogi' },
+    { name: 'Przywodzenie nóg na maszynie (Pachwiny)', muscle: 'Nogi' },
+    // Taśma tylna & Pośladki
+    { name: 'Rumuński Martwy Ciąg (RDL) ze sztangą', muscle: 'Nogi' },
+    { name: 'Rumuński Martwy Ciąg z hantlami', muscle: 'Nogi' },
+    { name: 'Martwy ciąg na prostych nogach', muscle: 'Nogi' },
+    { name: 'Hip Thrust (Wypychanie bioder ze sztangą)', muscle: 'Nogi' },
+    { name: 'Wykroki chodzone z hantlami', muscle: 'Nogi' },
+    { name: 'Zakroki z hantlami', muscle: 'Nogi' },
+    // Łydki
+    { name: 'Wspięcia na palce stojąc', muscle: 'Nogi' },
+    { name: 'Wspięcia na palce siedząc', muscle: 'Nogi' }
   ],
+
   'Barki': [
-    { name: 'Wyciskanie sztangi nad głową', muscle: 'Barki' },
-    { name: 'Podnoszenia sztangi boczne', muscle: 'Barki' },
-    { name: 'Podnoszenia sztangi przód', muscle: 'Barki' },
-    { name: 'Reverse Pec Deck', muscle: 'Barki' },
+    // Wyciskanie (Przód & Boki)
+    { name: 'Wyciskanie żołnierskie ze sztangą (OHP)', muscle: 'Barki' },
+    { name: 'Wyciskanie hantli siedząc', muscle: 'Barki' },
+    { name: 'Wyciskanie Arnolda (Arnold Press)', muscle: 'Barki' },
+    { name: 'Wyciskanie na maszynie na barki', muscle: 'Barki' },
+    // Boczny akton
+    { name: 'Wznosy hantli bokiem stojąc', muscle: 'Barki' },
+    { name: 'Wznosy hantli bokiem siedząc', muscle: 'Barki' },
+    { name: 'Wznosy ramion na wyciągu bokiem (Cable Lateral Raise)', muscle: 'Barki' },
+    { name: 'Podciąganie sztangi wzdłuż tułowia', muscle: 'Barki' },
+    // Przedni & Tylny akton
+    { name: 'Wznosy hantli w przód', muscle: 'Barki' },
+    { name: 'Wznosy hantli w opadzie tułowia (Tył barku)', muscle: 'Barki' },
+    { name: 'Reverse Pec Deck (Maszyna na tył barku)', muscle: 'Barki' },
+    { name: 'Odwrotne rozpiętki na wyciągu (Tył barku)', muscle: 'Barki' }
   ],
+
   'Biceps': [
-    { name: 'Zawinięcia sztangi stojąc', muscle: 'Biceps' },
-    { name: 'Zawinięcia hantli', muscle: 'Biceps' },
-    { name: 'Zawinięcia na maszynie', muscle: 'Biceps' },
-    { name: 'Zawinięcia concentracyjne', muscle: 'Biceps' },
+    { name: 'Uginanie przedramion ze sztangą prostą', muscle: 'Biceps' },
+    { name: 'Uginanie przedramion ze sztangą łamaną (EZ)', muscle: 'Biceps' },
+    { name: 'Uginanie z hantlami z supinacją stojąc', muscle: 'Biceps' },
+    { name: 'Uginanie młotkowe z hantlami (Hammer Curls)', muscle: 'Biceps' },
+    { name: 'Uginanie z hantlami na ławce skośnej', muscle: 'Biceps' },
+    { name: 'Uginanie przedramion na modlitewniku', muscle: 'Biceps' },
+    { name: 'Uginanie skoncentrowane z hantlem w oparciu o kolano', muscle: 'Biceps' },
+    { name: 'Uginanie przedramion z linką wyciągu dolnego', muscle: 'Biceps' },
+    { name: 'Uginanie przedramion na maszynie', muscle: 'Biceps' },
+    { name: 'Uginanie Zottmana', muscle: 'Biceps' }
   ],
+
   'Triceps': [
-    { name: 'Wyciskanie żelaza w dół', muscle: 'Triceps' },
-    { name: 'Wyciskanie linki w dół', muscle: 'Triceps' },
-    { name: 'Skłony na fotel', muscle: 'Triceps' },
-    { name: 'Wyciskanie hantli zza głowy', muscle: 'Triceps' },
+    { name: 'Prostowanie ramion na wyciągu ze sznurem', muscle: 'Triceps' },
+    { name: 'Prostowanie ramion na wyciągu z drążkiem prostym/V', muscle: 'Triceps' },
+    { name: 'Wyciskanie francuskie ze sztangą łamaną leżąc (Skullcrushers)', muscle: 'Triceps' },
+    { name: 'Wyciskanie francuskie z hantlami leżąc', muscle: 'Triceps' },
+    { name: 'Prostowanie ramienia z hantlem zza głowy', muscle: 'Triceps' },
+    { name: 'Prostowanie ramion z linką wyciągu zza głowy', muscle: 'Triceps' },
+    { name: 'Wyciskanie sztangi w wąskim chwycie', muscle: 'Triceps' },
+    { name: 'Pompki w wąskim rozstawie rąk (Diamentowe)', muscle: 'Triceps' },
+    { name: 'Pompki odwrotne w oparciu o ławkę', muscle: 'Triceps' },
+    { name: 'Kickbacki - Prostowanie ramienia z hantlem w opadzie', muscle: 'Triceps' }
   ],
+
   'Brzuch': [
-    { name: 'Zawinięcia na maszynie', muscle: 'Brzuch' },
-    { name: 'Zawinięcia brzucha na równi pochyłej', muscle: 'Brzuch' },
-    { name: 'Drążek wisząc', muscle: 'Brzuch' },
-    { name: 'Nosidle drążka', muscle: 'Brzuch' },
+    { name: 'Allahy (Skłony z wyciągiem na kolanach)', muscle: 'Brzuch' },
+    { name: 'Unoszenie nóg w wiszeniu na drążku', muscle: 'Brzuch' },
+    { name: 'Unoszenie kolan do klatki w wiszeniu', muscle: 'Brzuch' },
+    { name: 'Spięcia brzucha na ławce skośnej', muscle: 'Brzuch' },
+    { name: 'Spięcia brzucha na maszynie', muscle: 'Brzuch' },
+    { name: 'Kółko do brzucha z kolan (Ab Wheel)', muscle: 'Brzuch' },
+    { name: 'Plank (Deska przodem)', muscle: 'Brzuch' },
+    { name: 'Side Plank (Deska boczna)', muscle: 'Brzuch' },
+    { name: 'Skręty tułowia z talerzem / kettlebellem (Russian Twists)', muscle: 'Brzuch' },
+    { name: 'Scyzoryki leżąc (V-ups)', muscle: 'Brzuch' }
   ]
 };
 
