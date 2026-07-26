@@ -122,31 +122,31 @@
   .stat-tile{ transition:transform .2s cubic-bezier(.34,1.56,.64,1); }
   .stat-tile:active{ transform:scale(0.95); }
 
-  .nav-icon{ color:var(--text-dim); transition:color .25s cubic-bezier(.4,0,.2,1); }
-  .nav-label{ color:var(--text-dim); transition:color .25s cubic-bezier(.4,0,.2,1); }
+  .nav-icon{ color:var(--text-dim); transition:color .2s ease; }
+  .nav-label{ color:var(--text-dim); transition:color .2s ease; }
   .nav-item[data-active="true"] .nav-icon{ animation:scaleFade .3s cubic-bezier(.34,1.56,.64,1) both; }
 
-  /* ===== PASEK NAWIGACJI — AKTYWNA NEONOWA PIGUŁKA ===== */
+  /* ===== PASEK NAWIGACJI — CYBER-BRUTALIST HUD BAR ===== */
   .nav-bar{
     position:fixed; left:0; right:0; bottom:0; z-index:50;
     max-width:428px; margin:0 auto;
-    display:flex; align-items:center; justify-content:space-around;
-    background:var(--tile);
-    border-top:1px solid var(--hairline);
-    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
+    display:flex; align-items:center;
+    background:#121212;
+    border-top:1px solid #D0FD38;
+    box-shadow:0 -4px 15px rgba(208,253,56,0.3);
+    padding:10px 6px calc(10px + env(safe-area-inset-bottom));
   }
-  .nav-pill-wrap{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
-    padding:6px 12px; border-radius:9999px;
-    transition:background-color .25s cubic-bezier(.4,0,.2,1), padding .25s cubic-bezier(.4,0,.2,1), gap .25s ease;
+  .nav-item[data-active="true"] .nav-icon{ color:var(--accent); }
+  .nav-item[data-active="true"] .nav-label{ color:var(--accent); font-weight:800; }
+  .nav-indicator{
+    width:20px; height:2px; border-radius:2px; margin-top:5px;
+    background:transparent;
+    transition:background-color .2s ease, box-shadow .2s ease;
   }
-  .nav-item[data-active="true"] .nav-pill-wrap{
-    flex-direction:row; gap:7px;
+  .nav-item[data-active="true"] .nav-indicator{
     background:var(--accent);
-    padding:9px 18px;
+    box-shadow:0 0 8px var(--accent);
   }
-  .nav-item[data-active="true"] .nav-icon{ color:#0D0D0D; }
-  .nav-item[data-active="true"] .nav-label{ color:#0D0D0D; font-weight:800; }
 
   /* ===== SPLASH SCREEN (ekran powitalny przy uruchomieniu) ===== */
   #splash-screen{
@@ -366,39 +366,34 @@
 
   <!-- ============ NAVIGATION ============ -->
   <nav class="nav-bar">
-    <button class="nav-item tap flex-1 flex items-center justify-center" data-view="home" data-active="true">
-      <span class="nav-pill-wrap">
-        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span class="nav-label text-[10px] font-semibold">Start</span>
-      </span>
+    <button class="nav-item tap flex-1 flex flex-col items-center justify-center gap-1" data-view="home" data-active="true">
+      <svg width="20" height="20" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="nav-label text-[10px] font-semibold">Start</span>
+      <span class="nav-indicator"></span>
     </button>
 
-    <button class="nav-item tap flex-1 flex items-center justify-center" data-view="plans" data-active="false">
-      <span class="nav-pill-wrap">
-        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-        <span class="nav-label text-[10px] font-semibold">Plany</span>
-      </span>
+    <button class="nav-item tap flex-1 flex flex-col items-center justify-center gap-1" data-view="plans" data-active="false">
+      <svg width="20" height="20" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+      <span class="nav-label text-[10px] font-semibold">Plany</span>
+      <span class="nav-indicator"></span>
     </button>
 
-    <button class="nav-item tap flex-1 flex items-center justify-center" data-view="stats" data-active="false">
-      <span class="nav-pill-wrap">
-        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17v-4M8 17v-2"/></svg>
-        <span class="nav-label text-[10px] font-semibold">Statystyki</span>
-      </span>
+    <button class="nav-item tap flex-1 flex flex-col items-center justify-center gap-1" data-view="stats" data-active="false">
+      <svg width="20" height="20" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17v-4M8 17v-2"/></svg>
+      <span class="nav-label text-[10px] font-semibold">Statystyki</span>
+      <span class="nav-indicator"></span>
     </button>
 
-    <button class="nav-item tap flex-1 flex items-center justify-center" data-view="history" data-active="false">
-      <span class="nav-pill-wrap">
-        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span class="nav-label text-[10px] font-semibold">Historia</span>
-      </span>
+    <button class="nav-item tap flex-1 flex flex-col items-center justify-center gap-1" data-view="history" data-active="false">
+      <svg width="20" height="20" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="nav-label text-[10px] font-semibold">Historia</span>
+      <span class="nav-indicator"></span>
     </button>
 
-    <button class="nav-item tap flex-1 flex items-center justify-center" data-view="settings" data-active="false">
-      <span class="nav-pill-wrap">
-        <svg width="18" height="18" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m0 5.08l-4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08 0l4.24 4.24M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
-        <span class="nav-label text-[10px] font-semibold">Ustawienia</span>
-      </span>
+    <button class="nav-item tap flex-1 flex flex-col items-center justify-center gap-1" data-view="settings" data-active="false">
+      <svg width="20" height="20" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m0 5.08l-4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08 0l4.24 4.24M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
+      <span class="nav-label text-[10px] font-semibold">Ustawienia</span>
+      <span class="nav-indicator"></span>
     </button>
   </nav>
 
