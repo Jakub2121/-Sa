@@ -348,11 +348,278 @@
     </div>
 
     <div class="mb-6">
-      <div class="flex items-center justify-between mb-4 px-1">
-        <p class="text-[18px] font-bold">Moja Aktywność</p>
-        <a href="#" onclick="switchView('stats'); return false;" class="text-[13px] font-semibold" style="color:var(--accent)">Szczegóły</a>
+      <!-- ================= SEKCJA: MOJA AKTYWNOŚĆ (ULTRA-MINIMALIZM) ================= -->
+<section class="space-y-4" id="section-my-activity">
+  <!-- Nagłówek sekcji -->
+  <div class="flex items-center justify-between px-1">
+    <h2 class="text-lg font-bold text-white tracking-tight">Moja Aktywność</h2>
+    <div class="flex items-center gap-2">
+      <!-- Przycisk synchronizacji Apple Health -->
+      <button 
+        onclick="syncWithAppleHealth()" 
+        class="p-2 text-xs font-semibold text-zinc-400 hover:text-[#d0fd38] transition-colors flex items-center gap-1.5 rounded-xl bg-zinc-900/40 active:scale-95"
+        title="Synchronizuj z Apple Health"
+      >
+        <svg class="w-4 h-4 text-[#d0fd38]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        <span class="hidden sm:inline">Apple Health</span>
+      </button>
+
+      <!-- Dyskretny przycisk Szczegóły -->
+      <button 
+        onclick="typeof switchTab === 'function' && switchTab('stats')" 
+        class="text-xs font-semibold text-zinc-400 hover:text-white transition-colors py-2 px-3 rounded-xl bg-zinc-900/40 active:scale-95"
+      >
+        Szczegóły
+      </button>
+    </div>
+  </div>
+
+  <!-- Wyróżniony Tonnaż (Pełna szerokość) -->
+  <div class="bg-zinc-900/40 p-5 rounded-3xl backdrop-blur-sm space-y-3">
+    <div class="flex items-center justify-between">
+      <span class="text-xs uppercase tracking-wider text-zinc-400 font-semibold">Łączny Tonnaż (Tydzień)</span>
+      <span id="home-tonnage-change" class="text-xs font-bold text-[#d0fd38] bg-[#d0fd38]/10 px-2.5 py-1 rounded-full flex items-center gap-1">
+        0% vs poprz.
+      </span>
+    </div>
+    
+    <div class="flex items-baseline gap-2">
+      <span id="home-total-tonnage" class="text-4xl font-extrabold text-[#d0fd38] tracking-tight">0</span>
+      <span class="text-sm font-medium text-zinc-400">kg</span>
+    </div>
+
+    <!-- Zintegrowany mini-wykres słupkowy tygodniowy -->
+    <div class="pt-2">
+      <div id="home-tonnage-bars" class="flex items-end justify-between h-12 gap-1.5 pt-2"></div>
+      <div class="flex justify-between text-[10px] text-zinc-500 font-medium mt-2 px-0.5">
+        <span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>So</span><span>Nd</span>
       </div>
-      <div id="home-activity-stats"></div>
+    </div>
+  </div>
+
+  <!-- Siatka 2-kolumnowa dla pozostałych wskaźników -->
+  <div class="grid grid-cols-2 gap-3">
+    <!-- 1. Treningi -->
+    <div class="bg-zinc-900/40 p-4 rounded-2xl flex flex-col justify-between space-y-2">
+      <div class="flex items-center justify-between text-zinc-400">
+        <span class="text-xs font-semibold">Treningi</span>
+        <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-2xl font-extrabold text-white" id="home-workouts-count">0</div>
+        <div class="text-[11px] text-zinc-500 font-medium">sesji w tym tyg.</div>
+      </div>
+    </div>
+
+    <!-- 2. Czas -->
+    <div class="bg-zinc-900/40 p-4 rounded-2xl flex flex-col justify-between space-y-2">
+      <div class="flex items-center justify-between text-zinc-400">
+        <span class="text-xs font-semibold">Czas</span>
+        <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-2xl font-extrabold text-white" id="home-total-duration">0m</div>
+        <div class="text-[11px] text-zinc-500 font-medium">łącznie w tym tyg.</div>
+      </div>
+    </div>
+
+    <!-- 3. Kroki (Apple Health) -->
+    <div class="bg-zinc-900/40 p-4 rounded-2xl flex flex-col justify-between space-y-2">
+      <div class="flex items-center justify-between text-zinc-400">
+        <span class="text-xs font-semibold">Kroki</span>
+        <svg class="w-4 h-4 text-[#d0fd38]/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-2xl font-extrabold text-white" id="home-health-steps">0</div>
+        <div class="text-[11px] text-zinc-500 font-medium">z Apple Health</div>
+      </div>
+    </div>
+
+    <!-- 4. Kalorie (Treningi + Apple Health) -->
+    <div class="bg-zinc-900/40 p-4 rounded-2xl flex flex-col justify-between space-y-2">
+      <div class="flex items-center justify-between text-zinc-400">
+        <span class="text-xs font-semibold">Kalorie</span>
+        <svg class="w-4 h-4 text-amber-500/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-2xl font-extrabold text-white" id="home-total-calories">0 kcal</div>
+        <div class="text-[11px] text-zinc-500 font-medium">treningi + Health</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIKA MODUŁU "MOJA AKTYWNOŚĆ" -->
+<script>
+  function syncWithAppleHealth() {
+    window.location.href = "shortcuts://run-shortcut?name=ForgeSync";
+  }
+
+  function checkIncomingHealthSync() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const importData = urlParams.get('import');
+    
+    if (importData) {
+      try {
+        const parsed = JSON.parse(decodeURIComponent(importData));
+        
+        if (typeof db !== 'undefined') {
+          if (!db.healthData) db.healthData = { steps: 0, activeCalories: 0, lastSync: null };
+          
+          if (typeof parsed.steps === 'number') db.healthData.steps = parsed.steps;
+          if (typeof parsed.activeCalories === 'number') db.healthData.activeCalories = parsed.activeCalories;
+          db.healthData.lastSync = new Date().toISOString();
+          
+          if (typeof saveDb === 'function') saveDb();
+          else if (typeof saveState === 'function') saveState();
+          else localStorage.setItem('forge_db_v2', JSON.stringify(db));
+        }
+
+        const cleanUrl = window.location.pathname + window.location.search
+          .replace(/[\?&]import=[^&]+/, '')
+          .replace(/^&/, '?');
+        window.history.replaceState({}, document.title, cleanUrl || window.location.pathname);
+        
+        if (typeof showToast === 'function') {
+          showToast('Zsynchronizowano z Apple Health! 🍏');
+        }
+      } catch (e) {
+        console.error('Błąd parsowania danych Apple Health:', e);
+      }
+    }
+  }
+
+  function updateActivityData() {
+    if (typeof db === 'undefined') return;
+
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    const day = startOfWeek.getDay();
+    const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1);
+    startOfWeek.setDate(diff);
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const startOfPrevWeek = new Date(startOfWeek);
+    startOfPrevWeek.setDate(startOfPrevWeek.getDate() - 7);
+
+    let currentWeekTonnage = 0;
+    let prevWeekTonnage = 0;
+    let currentWeekWorkouts = 0;
+    let currentWeekDurationMinutes = 0;
+    let currentWeekWorkoutCalories = 0;
+
+    const dailyTonnage = [0, 0, 0, 0, 0, 0, 0];
+
+    (db.history || []).forEach(item => {
+      const itemDate = new Date(item.date || item.completedAt || item.timestamp);
+      
+      let sessionTonnage = 0;
+      if (typeof item.tonnage === 'number') {
+        sessionTonnage = item.tonnage;
+      } else if (Array.isArray(item.exercises)) {
+        item.exercises.forEach(ex => {
+          (ex.sets || []).forEach(s => {
+            if (s.done || s.completed) {
+              sessionTonnage += (parseFloat(s.weight) || 0) * (parseInt(s.reps) || 0);
+            }
+          });
+        });
+      }
+
+      const duration = parseInt(item.duration || item.durationMinutes) || 0;
+      const sessionCalories = item.calories || Math.round(duration * 6.5);
+
+      if (itemDate >= startOfWeek) {
+        currentWeekTonnage += sessionTonnage;
+        currentWeekWorkouts++;
+        currentWeekDurationMinutes += duration;
+        currentWeekWorkoutCalories += sessionCalories;
+
+        let dayIdx = itemDate.getDay() - 1;
+        if (dayIdx === -1) dayIdx = 6;
+        dailyTonnage[dayIdx] += sessionTonnage;
+      } else if (itemDate >= startOfPrevWeek && itemDate < startOfWeek) {
+        prevWeekTonnage += sessionTonnage;
+      }
+    });
+
+    // 1. Tonnaż
+    const tonnageEl = document.getElementById('home-total-tonnage');
+    if (tonnageEl) tonnageEl.textContent = currentWeekTonnage.toLocaleString('pl-PL');
+
+    // 2. Procent vs poprzedni tydzień
+    const changeEl = document.getElementById('home-tonnage-change');
+    if (changeEl) {
+      if (prevWeekTonnage > 0) {
+        const perc = Math.round(((currentWeekTonnage - prevWeekTonnage) / prevWeekTonnage) * 100);
+        const sign = perc >= 0 ? '+' : '';
+        changeEl.textContent = `${sign}${perc}% vs poprz.`;
+        changeEl.className = perc >= 0 
+          ? "text-xs font-bold text-[#d0fd38] bg-[#d0fd38]/10 px-2.5 py-1 rounded-full flex items-center gap-1"
+          : "text-xs font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full flex items-center gap-1";
+      } else {
+        changeEl.textContent = currentWeekTonnage > 0 ? "Nowy rekord!" : "Brak danych";
+        changeEl.className = "text-xs font-bold text-zinc-400 bg-zinc-800/60 px-2.5 py-1 rounded-full";
+      }
+    }
+
+    // 3. Mini wykres słupkowy
+    const maxDaily = Math.max(...dailyTonnage, 1);
+    const barsContainer = document.getElementById('home-tonnage-bars');
+    if (barsContainer) {
+      barsContainer.innerHTML = dailyTonnage.map(val => {
+        const heightPerc = val > 0 ? Math.max(18, Math.round((val / maxDaily) * 100)) : 10;
+        const barBg = val > 0 ? 'bg-[#d0fd38]' : 'bg-zinc-800/50';
+        return `<div class="flex-1 ${barBg} rounded-t-sm transition-all duration-300" style="height: ${heightPerc}%" title="${val} kg"></div>`;
+      }).join('');
+    }
+
+    // 4. Liczba treningów
+    const workoutsEl = document.getElementById('home-workouts-count');
+    if (workoutsEl) workoutsEl.textContent = currentWeekWorkouts;
+
+    // 5. Czas łączny
+    const durationEl = document.getElementById('home-total-duration');
+    if (durationEl) {
+      const hours = Math.floor(currentWeekDurationMinutes / 60);
+      const mins = currentWeekDurationMinutes % 60;
+      durationEl.textContent = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+    }
+
+    // 6. Kroki
+    const healthSteps = (db.healthData && db.healthData.steps) ? db.healthData.steps : 0;
+    const stepsEl = document.getElementById('home-health-steps');
+    if (stepsEl) stepsEl.textContent = healthSteps.toLocaleString('pl-PL');
+
+    // 7. Kalorie
+    const healthCalories = (db.healthData && db.healthData.activeCalories) ? db.healthData.activeCalories : 0;
+    const totalCalories = currentWeekWorkoutCalories + healthCalories;
+    const caloriesEl = document.getElementById('home-total-calories');
+    if (caloriesEl) caloriesEl.textContent = `${totalCalories.toLocaleString('pl-PL')} kcal`;
+  }
+
+  // Automatyczne odświeżanie danych przy załadowaniu strony
+  document.addEventListener('DOMContentLoaded', () => {
+    checkIncomingHealthSync();
+    updateActivityData();
+  });
+
+  // Jeżeli strona już się załadowała, wywołaj od razu
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    checkIncomingHealthSync();
+    updateActivityData();
+  }
+</script>
     </div>
 
     <div>
