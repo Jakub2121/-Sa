@@ -244,6 +244,187 @@
   .input-field-wrapper input{ width:auto; max-width:44px; min-width:0; flex-shrink:1; background:transparent; text-align:center; border:none; outline:none; padding:0; font-size:14px; }
   .input-field-label-small{ font-size:10px; color:var(--text-dim); font-weight:500; text-transform:uppercase; letter-spacing:.05em; }
   .input-field-inline-label{ font-size:8.5px; color:var(--text-dim); font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; }
+
+
+  /* ===== HOME / MOJA AKTYWNOŚĆ — MINIMAL TYPOGRAPHIC REFRESH ===== */
+  .app-shell{
+    background:
+      radial-gradient(circle at 50% -8%, rgba(208,253,56,.115), transparent 34%),
+      radial-gradient(circle at 92% 18%, rgba(255,255,255,.045), transparent 24%),
+      var(--bg);
+  }
+  #view-home{
+    position:relative;
+    isolation:isolate;
+  }
+  #view-home::before{
+    content:"";
+    position:absolute;
+    top:68px;
+    left:50%;
+    width:78%;
+    height:220px;
+    pointer-events:none;
+    transform:translateX(-50%);
+    border-radius:999px;
+    background:rgba(208,253,56,.10);
+    filter:blur(46px);
+    opacity:.72;
+    z-index:-1;
+  }
+  #view-home > .mb-6:first-child > div{
+    border:1px solid rgba(255,255,255,.18) !important;
+    border-radius:28px !important;
+    background:
+      linear-gradient(145deg, rgba(224,255,86,.98), rgba(185,235,38,.94)) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.42),
+      inset 0 -1px 0 rgba(13,13,13,.10),
+      0 18px 34px -22px rgba(208,253,56,.85),
+      0 26px 54px -30px rgba(0,0,0,.62) !important;
+    transform:translateY(-1px);
+  }
+  #view-home > .mb-6:first-child > div::after{
+    content:"";
+    position:absolute;
+    inset:1px;
+    pointer-events:none;
+    border-radius:27px;
+    background:linear-gradient(180deg, rgba(255,255,255,.26), transparent 28%, rgba(13,13,13,.045));
+  }
+  #view-home > .mb-6:first-child > div > *{
+    position:relative;
+    z-index:1;
+  }
+  #today-workout-name{
+    letter-spacing:-.075em;
+    text-wrap:balance;
+  }
+  #today-workout-exercises,
+  #today-workout-duration{
+    letter-spacing:-.045em;
+  }
+  #btn-start{
+    border:1px solid rgba(208,253,56,.18) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.09),
+      0 12px 22px -14px rgba(0,0,0,.78) !important;
+  }
+  #home-activity-stats{
+    position:relative;
+    isolation:isolate;
+  }
+  #home-activity-stats::before{
+    content:"";
+    position:absolute;
+    inset:-16px -10px auto;
+    height:148px;
+    pointer-events:none;
+    z-index:-1;
+    border-radius:28px;
+    background:radial-gradient(circle at 48% 0%, rgba(208,253,56,.12), transparent 58%);
+    filter:blur(28px);
+    opacity:.84;
+  }
+  #home-activity-stats > .flex{
+    gap:12px !important;
+  }
+  #home-activity-stats .stat-tile{
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08) !important;
+    border-radius:18px !important;
+    background:rgba(28,28,30,.72) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.055),
+      0 12px 30px -24px rgba(0,0,0,.95) !important;
+    backdrop-filter:blur(12px) saturate(132%);
+    -webkit-backdrop-filter:blur(12px) saturate(132%);
+    transition:transform .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+  }
+  #home-activity-stats .stat-tile:hover{
+    transform:translateY(-1px);
+    border-color:rgba(255,255,255,.13) !important;
+    background:rgba(34,34,37,.78) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.075),
+      0 16px 34px -26px rgba(0,0,0,1) !important;
+  }
+  #home-activity-stats .stat-tile:active{
+    transform:scale(.985);
+  }
+  #home-activity-stats .stat-tile::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(180deg, rgba(255,255,255,.055), transparent 42%);
+  }
+  #home-activity-stats .stat-tile > *{
+    position:relative;
+    z-index:1;
+  }
+  #home-activity-stats .stat-tile:first-child{
+    min-height:146px;
+    padding:22px !important;
+  }
+  #home-activity-stats .stat-tile:first-child > span{
+    top:18px !important;
+    right:18px !important;
+    width:40px !important;
+    height:40px !important;
+    background:rgba(208,253,56,.10) !important;
+    border:1px solid rgba(208,253,56,.12);
+    box-shadow:none;
+  }
+  #home-activity-stats .stat-tile:first-child p:first-of-type,
+  #home-activity-stats .grid .stat-tile p:first-child{
+    color:rgba(255,255,255,.48) !important;
+    font-size:10px !important;
+    font-weight:500 !important;
+    letter-spacing:.12em !important;
+  }
+  #home-activity-stats .stat-tile:first-child .count-up{
+    color:#f4ffe0 !important;
+    font-size:42px !important;
+    line-height:.92 !important;
+    font-weight:900 !important;
+    letter-spacing:-.07em;
+    text-shadow:none;
+  }
+  #home-activity-stats .stat-tile:first-child p:last-child{
+    color:rgba(255,255,255,.42) !important;
+    font-size:12px !important;
+    font-weight:400 !important;
+  }
+  #home-activity-stats .grid{
+    gap:10px !important;
+  }
+  #home-activity-stats .grid .stat-tile{
+    min-height:102px;
+    padding:16px !important;
+  }
+  #home-activity-stats .grid .stat-tile p:last-child{
+    color:#fff !important;
+    font-size:30px !important;
+    line-height:.96 !important;
+    font-weight:900 !important;
+    letter-spacing:-.065em;
+    text-shadow:none;
+  }
+  #home-activity-stats .grid .stat-tile:first-child{
+    border-color:rgba(208,253,56,.10) !important;
+  }
+  #home-activity-stats .grid .stat-tile:first-child .count-up{
+    color:#d0fd38 !important;
+  }
+  #home-activity-stats .grid .stat-tile:last-child{
+    border-color:rgba(255,255,255,.09) !important;
+  }
+  #home-activity-stats .grid .stat-tile:last-child p:last-child{
+    color:#f5f5f7 !important;
+  }
+
 </style>
 </head>
 <body>
