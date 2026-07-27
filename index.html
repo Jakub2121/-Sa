@@ -351,16 +351,6 @@
       <div class="flex items-center justify-between mb-4 px-1">
         <p class="text-[18px] font-bold">Moja Aktywność</p>
         <a href="#" onclick="switchView('stats'); return false;" class="text-[13px] font-semibold" style="color:var(--accent)">Szczegóły</a>
-
-
-<button type="button" class="btn-health" onclick="triggerAppleHealthImport()">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-  </svg>
-  Pobierz dane ze Zdrowia
-</button>
-        
-        
       </div>
       <div id="home-activity-stats"></div>
     </div>
@@ -1726,43 +1716,6 @@ if(profile && profile.name){
   }, 1500);
 })();
 
-
-// 1. Wywołanie skrótu po kliknięciu przycisku
-function triggerAppleHealthImport() {
-  const shortcutName = "FORGE_Health"; // Dokładna nazwa skrótu w iOS
-  window.location.href = `shortcuts://run-shortcut?name=${encodeURIComponent(shortcutName)}`;
-}
-
-// 2. Odczyt pobranych danych przy powrocie na stronę
-function checkHealthDataFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const bpm = urlParams.get('bpm');
-  const kcal = urlParams.get('kcal');
-
-  if (bpm || kcal) {
-    // Wstawiamy dane do odpowiednich pól w aplikacji
-    if (bpm && document.getElementById('workout-bpm')) {
-      document.getElementById('workout-bpm').value = bpm;
-    }
-    if (kcal && document.getElementById('workout-kcal')) {
-      document.getElementById('workout-kcal').value = kcal;
-    }
-
-    // Informacja dla użytkownika (toast / notification)
-    if (typeof showToast === 'function') {
-      showToast(`Pobrano ze Zdrowia: ${bpm ? bpm + ' BPM' : ''} ${kcal ? kcal + ' kcal' : ''}`);
-    }
-
-    // Wyczyszczenie adresu URL (usuwa ?bpm=... z paska adresu bez przeładowania)
-    const cleanUrl = window.location.origin + window.location.pathname;
-    window.history.replaceState({}, document.title, cleanUrl);
-  }
-}
-
-// Wywołujemy sprawdzanie przy każdym załadowaniu / powrocie do aplikacji
-document.addEventListener('DOMContentLoaded', checkHealthDataFromURL);
-
-  
 </script>
 
 </body>
