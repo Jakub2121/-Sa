@@ -187,8 +187,6 @@
   .set-row.done .checkbtn{ background:var(--accent); border-color:var(--accent); }
   #modal-overlay{ position:fixed; top:0; left:0; right:0; bottom:calc(70px + env(safe-area-inset-bottom, 0)); background:var(--bg); z-index:60; display:none; flex-direction:column; }
   #modal-overlay.open{ display:flex; }
-  .nav-bar.hidden-during-workout{ display:none !important; }
-
   #toast{ position:fixed; left:50%; bottom:110px; transform:translate(-50%,20px); background:#fff; color:#0D0D0D; font-weight:700; font-size:14px; padding:12px 20px; border-radius:16px; z-index:80; opacity:0; pointer-events:none; transition:all .25s ease; }
   #toast.show{ opacity:1; transform:translate(-50%,0); }
 
@@ -949,11 +947,11 @@
     </header>
 
     <div class="grid grid-cols-2 gap-3 px-6 py-4" style="border-bottom:1px solid var(--hairline)">
-      <div class="stat-tile flex flex-col items-center justify-center py-3 rounded-2xl" style="background:var(--tile); border:1px solid var(--hairline); position:relative; z-index:1;">
+      <div class="flex flex-col items-center justify-center py-3 rounded-2xl" style="background:var(--tile)">
         <span class="text-[11px] font-semibold" style="color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">⏱ Czas</span>
         <span id="modal-timer" class="text-[20px] font-black">00:00</span>
       </div>
-      <div class="stat-tile flex flex-col items-center justify-center py-3 rounded-2xl" style="background:var(--tile); border:1px solid var(--hairline); position:relative; z-index:1;">
+      <div class="flex flex-col items-center justify-center py-3 rounded-2xl" style="background:var(--tile)">
         <span class="text-[11px] font-semibold" style="color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">💪 Tonnage</span>
         <span id="modal-tonnage" class="text-[20px] font-black">0 kg</span>
       </div>
@@ -1896,7 +1894,6 @@ function openWorkoutModal(planId = null){
   timerInterval = setInterval(updateTimer, 1000);
 
   document.getElementById('modal-overlay').classList.add('open');
-  document.querySelector('.nav-bar').classList.add('hidden-during-workout');
 }
 
 function updateTimer(){
@@ -1967,7 +1964,6 @@ function renderModalExercises(){
 function closeModal(){
   clearInterval(timerInterval);
   document.getElementById('modal-overlay').classList.remove('open');
-  document.querySelector('.nav-bar').classList.remove('hidden-during-workout');
   activeWorkout = null;
 }
 
